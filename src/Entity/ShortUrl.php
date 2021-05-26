@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShortUrlRepository")
  */
-final class ShortUrl extends AbstractEntity
+class ShortUrl extends AbstractEntity
 {
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Domain", inversedBy="shortUrls", cascade={"persist"})

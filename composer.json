@@ -72,7 +72,8 @@
         "nunomaduro/collision": "^5.4",
         "ramsey/collection": "^1.1",
         "qossmic/rich-model-forms-bundle": "^0.1.0",
-        "ircmaxell/random-lib": "^1.2"
+        "ircmaxell/random-lib": "^1.2",
+        "beberlei/doctrineextensions": "^1.3"
     },
     "require-dev": {
         "doctrine/coding-standard": "^9.0",

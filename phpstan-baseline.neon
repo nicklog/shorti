@@ -1,6 +1,0 @@
-parameters:
-	ignoreErrors:
-		-
-			message: "#^Instanceof between App\\\\Entity\\\\Common\\\\AbstractEntity and App\\\\Entity\\\\Common\\\\AbstractEntity will always evaluate to true\\.$#"
-			count: 1
-			path: src/Entity/Common/AbstractEntity.php

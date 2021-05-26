@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\ShortUrl;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -28,7 +29,7 @@ final class ShortUrlRepository extends ServiceEntityRepository
             ->createQuery(
                 <<<'DQL'
                     SELECT s
-                    FROM App\Entity\Shorty s
+                    FROM App\Entity\ShortUrl s
                     WHERE BINARY(s.code) = :code 
                 DQL
             )

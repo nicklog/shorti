@@ -2,6 +2,9 @@
     "avris/dotenv": {
         "version": "v1.0.0"
     },
+    "beberlei/doctrineextensions": {
+        "version": "v1.3.0"
+    },
     "clue/stream-filter": {
         "version": "v1.4.0"
     },

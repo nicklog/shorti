@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VisitRepository")
  */
-final class Visit extends AbstractEntity
+class Visit extends AbstractEntity
 {
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ShortUrl", inversedBy="visits", cascade={"persist"})
