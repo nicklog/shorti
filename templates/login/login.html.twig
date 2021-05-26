@@ -1,0 +1,40 @@
+{% set bodyClasses = 'page-login' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="flex-fill d-flex flex-column justify-content-center py-4">
+        <div class="col-12 col-md-4 mt-5 mx-auto">
+            <div class="text-center mb-4">
+                Login
+            </div>
+            
+            <form class="card card-md" method="post" autocomplete="off">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Login to your account</h2>
+                    
+                    {% if error %}
+                        <div class="alert alert-default-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Email address</label>
+                        <input type="email" name="username" class="form-control" placeholder="Enter email" value="{{ last_username }}">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">
+                            Password
+                        </label>
+                        <div class="input-group input-group-flat">
+                            <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

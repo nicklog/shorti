@@ -1,0 +1,38 @@
+package_link:
+    requires: requires
+    devRequires: requires (dev)
+    suggests: suggests
+    provides: provides
+    conflicts: conflicts
+    replaces: replaces
+
+security:
+    login:
+        page_header: Anmeldung
+        headline: Anmelden
+
+profile:
+    change_password:
+        page_header: Passwort ändern
+
+action:
+    add: Hinzufügen
+    update_all: Alles aktualisieren
+    update: Aktualisieren
+    edit: Bearbeiten
+    remove: Löschen
+    cancel: Abbrechen
+
+menu:
+    admin: Admin
+    change_password: Passwort ändern
+    logout: Abmelden
+
+resetting:
+    request:
+        page_header: Passwort zurücksetzen
+        headline: Passwort zurücksetzen
+    reset:
+        page_header: Passwort setzen
+    check_email:
+        page_header: Passwort zurücksetzen

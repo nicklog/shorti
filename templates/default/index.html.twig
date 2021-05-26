@@ -1,0 +1,80 @@
+{% extends 'layout.html.twig' %}
+
+{% block pageTitle %}
+    Index
+{% endblock %}
+
+{% block pageActions %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-status-top bg-primary"></div>
+                <div class="card-body">
+                    <h3 class="card-title">Visits</h3>
+                    <p>0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-status-top bg-primary"></div>
+                <div class="card-body">
+                    <h3 class="card-title">Short URL's</h3>
+                    <p>0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            {{ form_start(form) }}
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Create a short URL</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.url) }}
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="#" class="btn btn-outline-primary ms-auto">Advanced options</a>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Recently created URLs</h4>
+                </div>
+                <table class="card-table table table-striped table-hover mb-0">
+                    <thead>
+                    <tr>
+                        <th>Created at</th>
+                        <th>Short URL</th>
+                        <th>Long URL</th>
+                        <th>Visits</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
