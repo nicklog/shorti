@@ -36,4 +36,34 @@ final class ShortUrlRepository extends ServiceEntityRepository
             ->setParameter('code', $code, Types::STRING)
             ->getOneOrNullResult();
     }
+
+    /**
+     * @return ShortUrl[]
+     */
+    public function findRecentlyCreated(): array
+    {
+        return $this
+            ->getEntityManager()
+            ->createQuery(
+                <<<'DQL'
+                    SELECT s
+                    FROM App\Entity\ShortUrl s
+                    ORDER BY s.created DESC
+                DQL
+            )
+            ->getResult();
+    }
+
+    public function countAll(): int
+    {
+        return (int) $this
+            ->getEntityManager()
+            ->createQuery(
+                <<<'DQL'
+                    SELECT COUNT(1)
+                    FROM App\Entity\ShortUrl s
+                DQL
+            )
+            ->getSingleScalarResult();
+    }
 }

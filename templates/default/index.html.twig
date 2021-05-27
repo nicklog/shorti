@@ -14,7 +14,7 @@
                 <div class="card-status-top bg-primary"></div>
                 <div class="card-body">
                     <h3 class="card-title">Visits</h3>
-                    <p>0</p>
+                    <p>{{ countVisits }}</p>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
                 <div class="card-status-top bg-primary"></div>
                 <div class="card-body">
                     <h3 class="card-title">Short URL's</h3>
-                    <p>0</p>
+                    <p>{{ countShortUrls }}</p>
                 </div>
             </div>
         </div>
@@ -65,13 +65,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    {% for shortUrl in recentlyCreatedShortUrls %}
+                        <tr>
+                            <td>{{ shortUrl.created|date }}</td>
+                            <td>
+                                <a href="{{ url('app_redirect', { code: shortUrl.code }) }}" target="_blank">
+                                    {{ shortUrl.code }}
+                                </a>
+                            </td>
+                            <td>{{ shortUrl.url }}</td>
+                            <td>{{ shortUrl.visits|length }}</td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

@@ -20,4 +20,17 @@ final class VisitRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Visit::class);
     }
+
+    public function countAll(): int
+    {
+        return (int) $this
+            ->getEntityManager()
+            ->createQuery(
+                <<<'DQL'
+                    SELECT COUNT(1)
+                    FROM App\Entity\Visit s
+                DQL
+            )
+            ->getSingleScalarResult();
+    }
 }

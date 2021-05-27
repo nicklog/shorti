@@ -55,12 +55,12 @@
             <div class="navbar navbar-light">
                 <div class="container-xl">
                     <ul class="navbar-nav">
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link" href="{{ path('app_package_index') }}">#}
-{#                                <i class="fas fa-cube fa-fw"></i>#}
-{#                                Packages#}
-{#                            </a>#}
-{#                        </li>#}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_short_url_index') }}">
+                                <i class="fas fa-cube fa-fw"></i>
+                                Short URL's
+                            </a>
+                        </li>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_user_index') }}">

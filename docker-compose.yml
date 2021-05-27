@@ -13,17 +13,11 @@ services:
       - TZ=Europe/Berlin
       - APP_ENV=dev
       - APP_API_KEY=abc
-      - DATABASE_NAME=devliver
-      - DATABASE_USER=devliver
-      - DATABASE_PASSWORD=devliver
-      - DATABASE_HOST=database
-      - DATABASE_PORT=3306
     depends_on:
       - database
     networks:
-      - default
-    ports:
-      - "9000:80"
+      internal:
+        ipv4_address: 172.16.83.10
 
   database:
     image: mariadb:latest
@@ -35,4 +29,13 @@ services:
       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
     networks:
-      - default
+      internal:
+        ipv4_address: 172.16.83.11
+
+networks:
+  internal:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.83.0/24

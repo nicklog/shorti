@@ -1,21 +1,21 @@
 {% extends 'layout.html.twig' %}
 
 {% block pageTitle %}
-    Add client
+    Add short URL
 {% endblock %}
 
 {% block content %}
     {{ form_start(form) }}
     <div class="card card-primary card-outline">
         <div class="card-header">
-            Client
+            Short URL
         </div>
         <div class="card-body">
             {{ form_widget(form) }}
         </div>
         <div class="card-footer text-end">
             <div class="d-flex">
-                <a href="{{ path('app_client_index') }}" class="btn btn-link">Cancel</a>
+                <a href="{{ path('app_short_url_index') }}" class="btn btn-link">Cancel</a>
                 <button type="submit" class="btn btn-primary ms-auto">Submit</button>
             </div>
         </div>

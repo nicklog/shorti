@@ -9,6 +9,7 @@ use App\Form\Type\Forms\UserPasswordType;
 use App\Form\Type\Forms\UserProfileType;
 use App\Service\FlashBagHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/profile", name="app_profile_")
+ * @IsGranted("ROLE_USER")
  */
 final class ProfileController extends AbstractController
 {

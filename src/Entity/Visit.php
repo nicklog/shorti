@@ -16,7 +16,7 @@ class Visit extends AbstractEntity
      * @ORM\ManyToOne(targetEntity="App\Entity\ShortUrl", inversedBy="visits", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
-    private ShortUrl $domain;
+    private ShortUrl $shortUrl;
 
     /** @ORM\Column(type="text", nullable=true) */
     private ?string $referer = null;
@@ -31,17 +31,17 @@ class Visit extends AbstractEntity
     {
         parent::__construct();
 
-        $this->domain = $domain;
+        $this->shortUrl = $domain;
     }
 
-    public function getDomain(): ShortUrl
+    public function getShortUrl(): ShortUrl
     {
-        return $this->domain;
+        return $this->shortUrl;
     }
 
-    public function setDomain(ShortUrl $domain): self
+    public function setShortUrl(ShortUrl $shortUrl): self
     {
-        $this->domain = $domain;
+        $this->shortUrl = $shortUrl;
 
         return $this;
     }

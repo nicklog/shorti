@@ -4,3 +4,8 @@ app:
 
 app_logout:
     path:     /logout
+
+# has to be the last one
+app_redirect:
+    path: /{code}
+    controller: \App\Controller\RedirectController

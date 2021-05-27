@@ -15,7 +15,7 @@
                     <h2 class="card-title text-center mb-4">Login to your account</h2>
                     
                     {% if error %}
-                        <div class="alert alert-default-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
                     
                     <div class="mb-3">
