@@ -15,27 +15,32 @@ use Doctrine\ORM\Mapping as ORM;
 class Domain extends AbstractEntity
 {
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ShortUrl", mappedBy="domain", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ShortUrl", mappedBy="domais", cascade={"persist", "remove"})
      *
      * @var Collection<int, ShortUrl>
      */
     private Collection $shortUrls;
 
     /** @ORM\Column(type="string", nullable=false, unique=true) */
-    private string $name;
+    private ?string $name = null;
 
-    public function __construct(
-        string $name
-    ) {
+    public function __construct()
+    {
         parent::__construct();
 
-        $this->name      = $name;
         $this->shortUrls = new ArrayCollection();
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -44,5 +49,10 @@ class Domain extends AbstractEntity
     public function getShortUrls(): Collection
     {
         return $this->shortUrls;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

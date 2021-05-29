@@ -21,13 +21,13 @@ use function sprintf;
  */
 class User extends AbstractEntity implements UserInterface
 {
-    /** @ORM\Column(type="string") */
+    /** @ORM\Column(type="string", nullable=false) */
     private string $email;
 
     /** @ORM\Column(type="string", nullable=true) */
     private ?string $password = null;
 
-    /** @ORM\Column(type="boolean", options={"default": true}) */
+    /** @ORM\Column(type="boolean", nullable=false, options={"default": true}) */
     private bool $enable = true;
 
     /**

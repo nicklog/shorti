@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Visit;
+use App\Infrastructure\Logger\LoggerKeyword;
 use App\Repository\ShortUrlRepository;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 final class RedirectController extends AbstractController
 {
@@ -17,31 +21,47 @@ final class RedirectController extends AbstractController
 
     private EntityManagerInterface $entityManager;
 
+    private LoggerInterface $logger;
+
     public function __construct(
         ShortUrlRepository $shortUrlRepository,
         EntityManagerInterface $entityManager,
+        LoggerInterface $logger,
     ) {
         $this->shortUrlRepository = $shortUrlRepository;
         $this->entityManager      = $entityManager;
+        $this->logger             = $logger;
     }
 
     public function __invoke(
         Request $request,
         string $code,
     ): Response {
-        $shorty = $this->shortUrlRepository->findOneByCode($code);
+        $shortUrl = $this->shortUrlRepository->findOneByCode($code);
 
-        if ($shorty === null) {
+        if ($shortUrl === null) {
             throw $this->createNotFoundException();
         }
 
-        $shorty->setLastUse(Carbon::now());
+        try {
+            $visit = Visit::create($shortUrl)
+                ->setReferer($request->server->get('HTTP_REFERER'))
+                ->setRemoteAddr($request->getClientIp())
+                ->setUserAgent($request->headers->get('User-Agent'));
 
-        $this->entityManager->persist($shorty);
-        $this->entityManager->flush();
+            $shortUrl->setLastUse(Carbon::now());
+
+            $this->entityManager->persist($visit);
+            $this->entityManager->persist($shortUrl);
+            $this->entityManager->flush();
+        } catch (Throwable $exception) {
+            $this->logger->error($exception->getMessage(), [
+                LoggerKeyword::EXCEPTION => $exception,
+            ]);
+        }
 
         return $this->redirect(
-            $shorty->getUrl()
+            $shortUrl->getUrl()
         );
     }
 }

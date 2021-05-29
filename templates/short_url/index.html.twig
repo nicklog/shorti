@@ -15,38 +15,44 @@
                 <div class="card-header">
                     Short urls <span class="badge bg-primary">{{ pagination.getTotalItemCount }}</span>
                 </div>
-                <div class="card-body p-0">
-                    <table class="table table-hover mb-0">
+                <table class="table table-vcenter table-hover table-striped card-table">
+                    <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Url</th>
+                        <th>Created</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for shortUrl in pagination %}
                         <tr>
-                            <th>Code</th>
-                            <th>Url</th>
-                            <th>Created</th>
-                            <th></th>
+                            <td>
+                                <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}">
+                                    {{ shortUrl.code }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ shortUrl.url }}" title="{{ shortUrl.url }}" target="_blank">
+                                    {{ shortUrl.url|u.truncate(100, '...') }}
+                                </a>
+                            </td>
+                            <td>{{ shortUrl.created|date }}</td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    {% if shortUrl.enabled != true %}
+                                        <a href="{{ path('app_short_url_enable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.enable'|trans }}" class="btn btn-sm btn-danger"><span class="fas fa-circle fa-fw"></span></a>
+                                    {% else %}
+                                        <a href="{{ path('app_short_url_disable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.disable'|trans }}" class="btn btn-sm btn-success"><span class="fas fa-circle fa-fw"></span></a>
+                                    {% endif %}
+                                    <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="fas fa-edit fa-fw"></span></a>
+                                    <a href="{{ path('app_short_url_remove', { shortUrl: shortUrl.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="fas fa-trash fa-fw"></span></a>
+                                </div>
+                            </td>
                         </tr>
-                        {% for shortUrl in pagination %}
-                            <tr>
-                                <td>
-                                    <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}">
-                                        {{ shortUrl.code }}
-                                    </a>
-                                </td>
-                                <td>{{ shortUrl.url }}</td>
-                                <td>{{ shortUrl.created|date }}</td>
-                                <td style="white-space: nowrap; width: 1px;">
-                                    <div class="btn-group">
-                                        {% if shortUrl.enable != true %}
-                                            <a href="{{ path('app_short_url_enable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.enable'|trans }}" class="btn btn-sm btn-danger"><span class="fas fa-circle fa-fw"></span></a>
-                                        {% else %}
-                                            <a href="{{ path('app_short_url_disable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.disable'|trans }}" class="btn btn-sm btn-success"><span class="fas fa-circle fa-fw"></span></a>
-                                        {% endif %}
-                                        <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="fas fa-edit fa-fw"></span></a>
-                                        <a href="{{ path('app_short_url_remove', { shortUrl: shortUrl.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="fas fa-trash fa-fw"></span></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
+                    {% endfor %}
+                    </tbody>
+                </table>
                 <div class="card-footer d-flex align-items-center">
                     {{ knp_pagination_render(pagination) }}
                 </div>

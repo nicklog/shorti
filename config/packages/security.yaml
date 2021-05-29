@@ -19,7 +19,7 @@ security:
 
         main:
             user_checker: App\Security\Checker\UserChecker
-            pattern: ^/
+            pattern: ^/admin
             context: user
             anonymous: true
             provider: users
@@ -27,14 +27,14 @@ security:
                 authenticators:
                     - App\Security\Guard\Authenticator\LoginFormAuthenticator
             logout:
-                path: /logout
-                target: /
+                path: app_logout
+                target: app_login
                 invalidate_session: true
 
     access_control:
-        - { path: ^/setup, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/setup, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
-        - { path: ^/.*, role: ROLE_USER }
+        - { path: ^/admin, role: ROLE_USER }
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

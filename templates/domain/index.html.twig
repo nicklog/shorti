@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% block pageTitle %}
+    Domains
+{% endblock %}
+
+{% block pageActions %}
+    <a class="btn btn-primary" href="{{ path('app_domain_add') }}">Add domain</a>
+{% endblock %}
+
+{% block content %}
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    Domains <span class="badge bg-primary">{{ pagination.getTotalItemCount }}</span>
+                </div>
+                <table class="table table-vcenter table-hover table-striped card-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Created</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for domain in pagination %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('app_domain_edit', { domain: domain.id }) }}">
+                                    {{ domain.name }}
+                                </a>
+                            </td>
+                            <td>{{ domain.created|date }}</td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <a href="{{ path('app_domain_edit', { domain: domain.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="fas fa-edit fa-fw"></span></a>
+                                    <a href="{{ path('app_domain_remove', { domain: domain.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="fas fa-trash fa-fw"></span></a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="card-footer d-flex align-items-center">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

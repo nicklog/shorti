@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use function assert;
 
 /**
- * @Route("/setup", name="app_setup")
+ * @Route("/admin/setup", name="app_setup")
  */
 final class SetupController extends AbstractController
 {

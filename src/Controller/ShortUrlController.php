@@ -10,7 +10,6 @@ use App\Repository\ShortUrlRepository;
 use App\Service\FlashBagHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,8 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use function assert;
 
 /**
- * @Route("/short-urls", name="app_short_url_")
- * @IsGranted("ROLE_USER")
+ * @Route("/admin/short-urls", name="app_short_url_")
  */
 final class ShortUrlController extends AbstractController
 {

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Common\AbstractEntity;
-use App\Util\ShortyUtil;
-use Carbon\Carbon;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,10 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
 class ShortUrl extends AbstractEntity
 {
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Domain", inversedBy="shortUrls", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Domain", inversedBy="shortUrls", cascade={"persist"})
+     *
+     * @var Collection<int, Domain>
      */
-    private ?Domain $domain = null;
+    private Collection $domains;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="shortUrl", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -30,57 +29,76 @@ class ShortUrl extends AbstractEntity
      */
     private Collection $visits;
 
-    /** @ORM\Column(type="string", unique=true, options={"collation": "utf8mb4_bin"}) */
-    private string $code;
+    /** @ORM\Column(type="string", unique=true, nullable=false, options={"collation": "utf8mb4_bin"}) */
+    private ?string $code = null;
 
-    /** @ORM\Column(type="text", unique=true) */
-    private string $url;
+    /** @ORM\Column(type="text", unique=true, nullable=false) */
+    private ?string $url = null;
 
-    /** @ORM\Column(type="boolean", options={"default": true}) */
+    /** @ORM\Column(type="boolean", nullable=false, options={"default": true}) */
     private bool $enabled = true;
 
-    /** @ORM\Column(type="datetimeutc", nullable=false, options={"default"="CURRENT_TIMESTAMP"}) */
-    private DateTimeInterface $lastUse;
+    /** @ORM\Column(type="datetimeutc", nullable=true, options={"default"="CURRENT_TIMESTAMP"}) */
+    private ?DateTimeInterface $lastUse;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->code    = ShortyUtil::generateCode();
-        $this->lastUse = Carbon::now();
         $this->visits  = new ArrayCollection();
+        $this->domains = new ArrayCollection();
     }
 
-    public function getDomain(): ?Domain
+    /**
+     * @return Collection<int, Domain>
+     */
+    public function getDomains(): Collection
     {
-        return $this->domain;
+        return $this->domains;
     }
 
-    public function setDomain(?Domain $domain): self
+    public function addDomain(Domain $domain): self
     {
-        $this->domain = $domain;
+        if ($this->domains->contains($domain)) {
+            return $this;
+        }
+
+        $domain->getShortUrls()->add($this);
+        $this->domains->add($domain);
 
         return $this;
     }
 
-    public function getCode(): string
+    public function removeDomain(Domain $domain): self
+    {
+        if (! $this->domains->contains($domain)) {
+            return $this;
+        }
+
+        $domain->getShortUrls()->removeElement($this);
+        $this->domains->removeElement($domain);
+
+        return $this;
+    }
+
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
-    public function setCode(string $code): self
+    public function setCode(?string $code): self
     {
         $this->code = $code;
 
         return $this;
     }
 
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
-    public function setUrl(string $url): self
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
 
@@ -113,7 +131,7 @@ class ShortUrl extends AbstractEntity
         return $this;
     }
 
-    public function getLastUse(): DateTimeInterface
+    public function getLastUse(): ?DateTimeInterface
     {
         return $this->lastUse;
     }

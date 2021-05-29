@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use function assert;
 
 /**
- * @Route("/users", name="app_user_")
+ * @Route("/admin/users", name="app_user_")
  * @IsGranted("ROLE_ADMIN")
  */
 final class UserController extends AbstractController

@@ -22,3 +22,5 @@ services:
         tags: ['controller.service_arguments']
 
     App\Infrastructure\ArgumentResolver\UserValueResolver: ~
+    App\Infrastructure\Monolog\Processor\ExceptionProcessor: ~
+    

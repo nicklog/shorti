@@ -3,7 +3,7 @@ app:
     type: annotation
 
 app_logout:
-    path:     /logout
+    path: /admin/logout
 
 # has to be the last one
 app_redirect:

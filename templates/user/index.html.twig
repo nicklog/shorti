@@ -15,36 +15,41 @@
                 <div class="card-header">
                     Users <span class="badge bg-primary">{{ pagination.getTotalItemCount }}</span>
                 </div>
-                <div class="card-body p-0">
-                    <table class="table table-hover mb-0">
+                <table class="table table-vcenter table-hover table-striped card-table">
+                    <thead>
+                    <tr>
+                        <th>{{ knp_pagination_sortable(pagination, 'Mail address', ['p.email']) }}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in pagination %}
                         <tr>
-                            <th>{{ knp_pagination_sortable(pagination, 'Mail address', ['p.email']) }}</th>
-                            <th></th>
-                        </tr>
-                        {% for user in pagination %}
-                            <tr>
-                                <td>
-                                    <a href="{{ path('app_user_edit', {user: user.id}) }}">
-                                        {{ user.email }}
-                                    </a>
-                                </td>
-                                <td style="white-space: nowrap; width: 1px;">
-                                    <div class="btn-group">
-                                        {% if user.equals(app.user) == false %}
-                                            {% if user.enable != true %}
-                                                <a href="{{ path('app_user_enable', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.enable'|trans }}" class="btn btn-sm btn-danger"><span class="fas fa-circle fa-fw"></span></a>
-                                            {% else %}
-                                                <a href="{{ path('app_user_disable', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.disable'|trans }}" class="btn btn-sm btn-success"><span class="fas fa-circle fa-fw"></span></a>
-                                            {% endif %}
-                                            <a href="{{ path('app_user_edit', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="fas fa-edit fa-fw"></span></a>
-                                            <a href="{{ path('app_user_remove', { user: user.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="fas fa-trash fa-fw"></span></a>
+                            <td>
+                                <a href="{{ path('app_user_edit', {user: user.id}) }}">
+                                    {{ user.email }}
+                                </a>
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    {% if user.equals(app.user) == false %}
+                                        {% if user.enable != true %}
+                                            <a href="{{ path('app_user_enable', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.enable'|trans }}" class="btn btn-sm btn-danger"><span class="fas fa-circle fa-fw"></span></a>
+                                        {% else %}
+                                            <a href="{{ path('app_user_disable', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.disable'|trans }}" class="btn btn-sm btn-success"><span class="fas fa-circle fa-fw"></span></a>
                                         {% endif %}
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
+                                        <a href="{{ path('app_user_edit', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="fas fa-edit fa-fw"></span></a>
+                                        <a href="{{ path('app_user_remove', { user: user.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="fas fa-trash fa-fw"></span></a>
+                                    {% else %}
+                                        <span class="btn btn-sm btn-primary disabled"><span class="fas fa-edit fa-fw"></span></span>
+                                        <span class="btn btn-sm bs-confirmation btn-danger disabled"><span class="fas fa-trash fa-fw"></span></span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
                 <div class="card-footer d-flex align-items-center">
                     {{ knp_pagination_render(pagination) }}
                 </div>

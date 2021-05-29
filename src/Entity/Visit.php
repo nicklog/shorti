@@ -27,11 +27,16 @@ class Visit extends AbstractEntity
     /** @ORM\Column(type="string", nullable=true) */
     private ?string $userAgent = null;
 
-    public function __construct(ShortUrl $domain)
+    public function __construct(ShortUrl $shortUrl)
     {
         parent::__construct();
 
-        $this->shortUrl = $domain;
+        $this->shortUrl = $shortUrl;
+    }
+
+    public static function create(ShortUrl $shortUrl): self
+    {
+        return new self($shortUrl);
     }
 
     public function getShortUrl(): ShortUrl

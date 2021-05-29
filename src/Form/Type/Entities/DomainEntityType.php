@@ -6,15 +6,16 @@ namespace App\Form\Type\Entities;
 
 use App\Entity\Domain;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class DomainEntityType extends FormType
+final class DomainEntityType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'class' => Domain::class,
+            'class'        => Domain::class,
+            'choice_label' => 'name',
         ]);
     }
 

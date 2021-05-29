@@ -44,7 +44,7 @@ final class SetupListener implements EventSubscriberInterface
         if ($request->get('_route') === 'app_setup') {
             return;
         }
-        
+
         if ($this->userRepository->countAll() > 0) {
             return;
         }
@@ -52,8 +52,6 @@ final class SetupListener implements EventSubscriberInterface
         $response = new RedirectResponse(
             $this->urlGenerator->generate('app_setup')
         );
-
-        echo 1;die();
 
         $event->setResponse($response);
         $event->stopPropagation();
