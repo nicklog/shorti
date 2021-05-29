@@ -17,9 +17,11 @@ COPY . /var/www/html/
 RUN sudo chown -R docker:docker /var/www/html/
 
 RUN composer install --no-dev --no-interaction --no-progress --classmap-authoritative && \
-    yarn install && \
+    yarn install --force && \
     yarn prod && \
-    sudo rm -rf assets docker node_modules tests
+    sudo rm -rf assets docker docs node_modules tests \ 
+    .env.test .gitignore composer-require-checker.json docker-compose.yml Makefile package.json \
+    phpcs.xml phpstan.neon phpstan-baseline.neon phpunit.xml webpack.config.js yarn.lock
 
 VOLUME /var/www/html/
 EXPOSE 80
