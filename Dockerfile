@@ -8,6 +8,9 @@ ENV STARTUP_COMMAND_1="bin/console cache:clear" \
 
 ENV APACHE_DOCUMENT_ROOT="public/"
 
+ENV APACHE_RUN_USER=www-data \
+    APACHE_RUN_GROUP=www-data
+
 RUN touch /home/docker/.bashrc && printf '\
 HISTFILE=~/bash_history\n\
 PROMPT_COMMAND="history -a;history -n"\n\
@@ -22,6 +25,8 @@ RUN composer install --no-dev --no-interaction --no-progress --classmap-authorit
     sudo rm -rf assets docker docs node_modules tests \ 
     .env.test .gitignore composer-require-checker.json docker-compose.yml Makefile package.json \
     phpcs.xml phpstan.neon phpstan-baseline.neon phpunit.xml webpack.config.js yarn.lock
+    
+RUN sudo chown -R www-data:www-data /var/www/html/
 
 VOLUME /var/www/html/
 EXPOSE 80

@@ -9,7 +9,6 @@
 ##  Requirements
 
 * **Docker**
-* **MariaDB/MySQL**
 
 ##  Installation
 
@@ -20,14 +19,11 @@ version: '3.6'
 
 services:
   app:
-    image: nicklog/short:latest
+    image: nicklog/shorti:latest
     volumes:
       - ./data:/var/www/html/data
-      - ${HOME}/.ssh:/home/docker/.ssh
-      - ${HOME}/.composer/:/home/docker/.composer/
     environment:
       - TZ=Europe/Berlin
-      - APP_API_KEY=A-TOP-SECRET-KEY
       - DATABASE_NAME=shorti
       - DATABASE_USER=shorti
       - DATABASE_PASSWORD=shorti
