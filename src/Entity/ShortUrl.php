@@ -65,7 +65,7 @@ class ShortUrl extends AbstractEntity
      */
     public function getDomainsAsString(): Collection
     {
-        return $this->domains->map(static fn (Domain $domain): string => $domain->getName());
+        return $this->domains->map(static fn (Domain $domain): string => $domain->__toString());
     }
 
     public function addDomain(Domain $domain): self

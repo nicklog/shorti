@@ -688,6 +688,9 @@
             "ref": "a249484db698d1a847a30291c8f732414ac47e25"
         }
     },
+    "symfony/runtime": {
+        "version": "v5.3.0"
+    },
     "symfony/security-acl": {
         "version": "v3.0.1"
     },

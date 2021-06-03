@@ -35,7 +35,7 @@ final class SetupListener implements EventSubscriberInterface
 
     public function setup(RequestEvent $event): void
     {
-        if (! $event->isMasterRequest()) {
+        if (! $event->isMainRequest()) {
             return;
         }
 

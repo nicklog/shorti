@@ -53,8 +53,8 @@ final class DomainController extends AbstractController
 
         $page = $request->query->getInt('page', 1);
 
-        $sort      = $request->query->get('sort', 'p.id');
-        $direction = $request->query->get('direction', 'asc');
+        $sort      = $request->query->filter('sort', 'p.id');
+        $direction = $request->query->filter('direction', 'asc');
 
         $qb->orderBy($sort, $direction);
 

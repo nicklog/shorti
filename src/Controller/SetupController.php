@@ -12,8 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 use function assert;
 
@@ -24,18 +24,18 @@ final class SetupController extends AbstractController
 {
     private UserRepository $userRepository;
 
-    private UserPasswordEncoderInterface $userPasswordEncoder;
+    private UserPasswordHasherInterface $userPasswordHasher;
 
     private EntityManagerInterface $entityManager;
 
     public function __construct(
         UserRepository $userRepository,
-        UserPasswordEncoderInterface $userPasswordEncoder,
+        UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
     ) {
-        $this->userRepository      = $userRepository;
-        $this->userPasswordEncoder = $userPasswordEncoder;
-        $this->entityManager       = $entityManager;
+        $this->userRepository     = $userRepository;
+        $this->userPasswordHasher = $userPasswordHasher;
+        $this->entityManager      = $entityManager;
     }
 
     public function __invoke(Request $request): Response
@@ -52,7 +52,7 @@ final class SetupController extends AbstractController
             $user     = $form->getData();
             assert($user instanceof User);
 
-            $user->setPassword($this->userPasswordEncoder->encodePassword($user, $password));
+            $user->setPassword($this->userPasswordHasher->hashPassword($user, $password));
             $user->addRole(Role::ADMIN());
 
             $this->entityManager->persist($user);

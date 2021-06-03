@@ -8,6 +8,7 @@ use App\Domain\Role;
 use App\Entity\Common\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 use function array_search;
@@ -19,7 +20,7 @@ use function sprintf;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User extends AbstractEntity implements UserInterface
+class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /** @ORM\Column(type="string", nullable=false) */
     private string $email;
@@ -46,6 +47,11 @@ class User extends AbstractEntity implements UserInterface
     }
 
     public function getUsername(): string
+    {
+        return $this->getEmail();
+    }
+
+    public function getUserIdentifier(): string
     {
         return $this->getEmail();
     }

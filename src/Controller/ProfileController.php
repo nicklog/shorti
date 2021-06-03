@@ -13,8 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/admin/profile", name="app_profile_")
@@ -25,20 +25,20 @@ final class ProfileController extends AbstractController
 
     private FormFactoryInterface $formFactory;
 
-    private UserPasswordEncoderInterface $userPasswordEncoder;
+    private UserPasswordHasherInterface $userPasswordHasher;
 
     private FlashBagHelper $flashBagHelper;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         FormFactoryInterface $formFactory,
-        UserPasswordEncoderInterface $userPasswordEncoder,
+        UserPasswordHasherInterface $userPasswordHasher,
         FlashBagHelper $flashBagHelper,
     ) {
-        $this->entityManager       = $entityManager;
-        $this->formFactory         = $formFactory;
-        $this->userPasswordEncoder = $userPasswordEncoder;
-        $this->flashBagHelper      = $flashBagHelper;
+        $this->entityManager      = $entityManager;
+        $this->formFactory        = $formFactory;
+        $this->userPasswordHasher = $userPasswordHasher;
+        $this->flashBagHelper     = $flashBagHelper;
     }
 
     /**
@@ -75,7 +75,7 @@ final class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $form->get('passwordNew')->getData();
             $user->setPassword(
-                $this->userPasswordEncoder->encodePassword($user, $password)
+                $this->userPasswordHasher->hashPassword($user, $password)
             );
 
             $this->entityManager->persist($user);

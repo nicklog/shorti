@@ -51,8 +51,8 @@ final class ShortUrlController extends AbstractController
 
         $page = $request->query->getInt('page', 1);
 
-        $sort      = $request->query->get('sort', 'p.id');
-        $direction = $request->query->get('direction', 'desc');
+        $sort      = $request->query->filter('sort', 'p.id');
+        $direction = $request->query->filter('direction', 'desc');
 
         $qb->orderBy($sort, $direction);
 

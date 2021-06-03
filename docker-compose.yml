@@ -4,7 +4,7 @@ services:
   app:
     build: 
       context: .
-      dockerfile: Dockerfile-Development
+      dockerfile: Dockerfile
     volumes:
       - .:/var/www/html
       - ./var/bash_history:/home/docker/bash_history

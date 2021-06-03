@@ -14,8 +14,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 use function assert;
 
@@ -33,20 +33,20 @@ final class UserController extends AbstractController
 
     private PaginatorInterface $paginator;
 
-    private UserPasswordEncoderInterface $userPasswordEncoder;
+    private UserPasswordHasherInterface $userPasswordHasher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         UserRepository $userRepository,
         FlashBagHelper $flashBagHelper,
         PaginatorInterface $paginator,
-        UserPasswordEncoderInterface $userPasswordEncoder,
+        UserPasswordHasherInterface $userPasswordHasher,
     ) {
-        $this->entityManager       = $entityManager;
-        $this->userRepository      = $userRepository;
-        $this->flashBagHelper      = $flashBagHelper;
-        $this->paginator           = $paginator;
-        $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->entityManager      = $entityManager;
+        $this->userRepository     = $userRepository;
+        $this->flashBagHelper     = $flashBagHelper;
+        $this->paginator          = $paginator;
+        $this->userPasswordHasher = $userPasswordHasher;
     }
 
     /**
@@ -58,8 +58,8 @@ final class UserController extends AbstractController
 
         $page = $request->query->getInt('page', 1);
 
-        $sort      = $request->query->get('sort', 'p.id');
-        $direction = $request->query->get('direction', 'asc');
+        $sort      = $request->query->filter('sort', 'p.id');
+        $direction = $request->query->filter('direction', 'asc');
 
         $qb->orderBy($sort, $direction);
 
@@ -84,7 +84,7 @@ final class UserController extends AbstractController
 
             $password = $form->get('password')->getData();
             if ($password !== null && $password !== '') {
-                $user->setPassword($this->userPasswordEncoder->encodePassword($user, $password));
+                $user->setPassword($this->userPasswordHasher->hashPassword($user, $password));
             }
 
             $this->entityManager->persist($user);
@@ -111,7 +111,7 @@ final class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $form->get('password')->getData();
             if ($password !== null && $password !== '') {
-                $user->setPassword($this->userPasswordEncoder->encodePassword($user, $password));
+                $user->setPassword($this->userPasswordHasher->hashPassword($user, $password));
             }
 
             $this->entityManager->persist($user);
