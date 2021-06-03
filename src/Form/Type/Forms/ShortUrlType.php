@@ -28,6 +28,10 @@ final class ShortUrlType extends AbstractType
                 ],
                 'help'     => 'If you let this empty a code will be automatically generated.',
             ])
+            ->add('title', TextType::class, [
+                'label'    => 'Title',
+                'required' => false,
+            ])
             ->add('domains', DomainEntityType::class, [
                 'label'        => 'Domains that are this short url valid for',
                 'multiple'     => true,
@@ -45,6 +49,9 @@ final class ShortUrlType extends AbstractType
             'constraints' => [
                 new UniqueEntity([
                     'fields' => ['code'],
+                ]),
+                new UniqueEntity([
+                    'fields' => ['url'],
                 ]),
             ],
         ]);

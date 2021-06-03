@@ -19,13 +19,6 @@ final class Version20210527150821 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE short_url ADD enabled TINYINT(1) DEFAULT \'1\' NOT NULL');
-    }
-
-    public function down(Schema $schema): void
-    {
-        // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE short_url DROP enabled');
     }
 }

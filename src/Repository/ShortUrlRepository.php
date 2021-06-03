@@ -30,7 +30,7 @@ final class ShortUrlRepository extends ServiceEntityRepository
                 <<<'DQL'
                     SELECT s
                     FROM App\Entity\ShortUrl s
-                    WHERE BINARY(s.code) = :code 
+                    WHERE BINARY(s.code) = :code
                 DQL
             )
             ->setParameter('code', $code, Types::STRING)

@@ -35,6 +35,9 @@ class ShortUrl extends AbstractEntity
     /** @ORM\Column(type="text", unique=true, nullable=false) */
     private ?string $url = null;
 
+    /** @ORM\Column(type="text", nullable=true) */
+    private ?string $title = null;
+
     /** @ORM\Column(type="boolean", nullable=false, options={"default": true}) */
     private bool $enabled = true;
 
@@ -55,6 +58,14 @@ class ShortUrl extends AbstractEntity
     public function getDomains(): Collection
     {
         return $this->domains;
+    }
+
+    /**
+     * @return Collection<int, string>
+     */
+    public function getDomainsAsString(): Collection
+    {
+        return $this->domains->map(static fn (Domain $domain): string => $domain->getName());
     }
 
     public function addDomain(Domain $domain): self
@@ -101,6 +112,18 @@ class ShortUrl extends AbstractEntity
     public function setUrl(?string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }

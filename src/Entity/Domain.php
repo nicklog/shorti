@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Domain extends AbstractEntity
 {
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ShortUrl", mappedBy="domais", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\ShortUrl", mappedBy="domains", cascade={"persist", "remove"})
      *
      * @var Collection<int, ShortUrl>
      */

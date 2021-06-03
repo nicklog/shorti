@@ -20,8 +20,6 @@ version: '3.6'
 services:
   app:
     image: nicklog/shorti:latest
-    volumes:
-      - ./data:/var/www/html/data
     environment:
       - TZ=Europe/Berlin
       - DATABASE_NAME=shorti

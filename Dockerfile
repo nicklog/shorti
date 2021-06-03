@@ -28,5 +28,7 @@ RUN composer install --no-dev --no-interaction --no-progress --classmap-authorit
     
 RUN sudo chown -R www-data:www-data /var/www/html/
 
+RUN sudo apt-get remove -y yarn nodejs
+
 VOLUME /var/www/html/
 EXPOSE 80

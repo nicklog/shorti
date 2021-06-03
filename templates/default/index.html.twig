@@ -59,7 +59,7 @@
                     <tr>
                         <th>Created at</th>
                         <th>Short URL</th>
-                        <th>Long URL</th>
+                        <th>Long URL / Title</th>
                         <th>Visits</th>
                         <th></th>
                     </tr>
@@ -69,17 +69,29 @@
                         <tr>
                             <td>{{ shortUrl.created|date }}</td>
                             <td>
-                                <a href="{{ url('app_redirect', { code: shortUrl.code }) }}" title="{{ url('app_redirect', { code: shortUrl.code }) }}" target="_blank">
-                                    {{ shortUrl.code }}
+                                <a href="#"
+                                   class="copy-to-clipboard"
+                                   data-clipboard-text="{{ url('app_redirect', { code: shortUrl.code }) }}"
+                                   title="{{ url('app_redirect', { code: shortUrl.code }) }}"
+                                >
+                                    {{ url('app_redirect', { code: shortUrl.code }) }}
                                 </a>
                             </td>
                             <td>
                                 <a href="{{ shortUrl.url }}" title="{{ shortUrl.url }}" target="_blank">
-                                    {{ shortUrl.url|u.truncate(100, '...') }}
+                                    {% if shortUrl.title is not null %}
+                                        {{ shortUrl.title }}
+                                    {% else %}
+                                        {{ shortUrl.url|u.truncate(100, '...') }}
+                                    {% endif %}
                                 </a>
                             </td>
                             <td>{{ shortUrl.visits|length }}</td>
-                            <td></td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="iconify" data-icon="fa-solid:edit"></span></a>
+                                </div>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

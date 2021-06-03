@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block pageTitle %}
-    <i class="fas fa-user fa-fw"></i> {{ app.user.username }}
+    <span class="iconify me-1" data-icon="fa:user"></span> {{ app.user.username }}
 {% endblock %}
 
 {% block content %}
@@ -11,13 +11,13 @@
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link{% if app.request.get('_route') == 'app_profile_index' %} active{% endif %}" href="{{ path('app_profile_index') }}">
-                    <in class="fas fa-wrench fa-fw"></in>
+                    <span class="iconify me-1" data-icon="fa-solid:wrench"></span>
                     Settings
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link{% if app.request.get('_route') == 'app_profile_password' %} active{% endif %}" href="{{ path('app_profile_password') }}">
-                    <in class="fas fa-key fa-fw"></in>
+                    <span class="iconify me-1" data-icon="fa-solid:key"></span>
                     Change password
                 </a>
             </li>

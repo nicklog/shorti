@@ -19,7 +19,6 @@ final class Version20210526195113 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(
             <<<'SQL'
                 CREATE TABLE short_url 

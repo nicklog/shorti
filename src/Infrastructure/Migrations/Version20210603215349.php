@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210529121335 extends AbstractMigration
+final class Version20210603215349 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -19,6 +19,6 @@ final class Version20210529121335 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE short_url CHANGE code code VARCHAR(255) NOT NULL COLLATE `utf8mb4_bin`, CHANGE url url LONGTEXT NOT NULL');
+        $this->addSql('ALTER TABLE short_url ADD title LONGTEXT DEFAULT NULL');
     }
 }
