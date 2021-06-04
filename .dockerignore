@@ -5,6 +5,7 @@
 **/.dockerignore
 **/.DS_Store
 **/.git/
+**/.idea/
 **/.gitattributes
 **/.gitignore
 **/.gitmodules
@@ -13,6 +14,7 @@
 **/docker-compose.yaml
 **/docker-compose.yml
 **/Dockerfile
+**/Dockerfile-Development
 **/Thumbs.db
 .editorconfig
 .env.*.local
@@ -21,16 +23,17 @@
 .env.local.php
 .phpcs.cache
 composer-require-checker.json
-Makefile
 LICENSE
+Makefile
+phpcs.xml
 phpstan.neon
 phpstan-baseline.neon
-phpcs.xml
 phpunit.xml
 bin/*
 !bin/console
 .github/
-var/
+docker/
+docs/
 node_modules/
-vendor/
+var/
 tests/

@@ -9,9 +9,11 @@ RUN composer install --no-dev --no-interaction --no-progress --classmap-authorit
     yarn prod && \
     sudo rm -rf assets docker docs node_modules tests \ 
     .env.test .gitignore composer-require-checker.json docker-compose.yml Makefile package.json \
-    phpcs.xml phpstan.neon phpstan-baseline.neon phpunit.xml webpack.config.js yarn.lock
+    phpcs.xml phpstan.neon phpstan-baseline.neon phpunit.xml webpack.config.js yarn.lock composer.lock symfony.lock
     
 FROM thecodingmachine/php:8.0-v4-slim-apache
+
+COPY --from=builder /var/www/html /var/www/html
 
 ENV TEMPLATE_PHP_INI="production"
     
