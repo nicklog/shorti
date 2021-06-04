@@ -69,13 +69,13 @@
                         <tr>
                             <td>{{ shortUrl.created|date }}</td>
                             <td>
-                                <a href="#"
-                                   class="copy-to-clipboard"
+                                <span
+                                   class="copy-to-clipboard link-primary pointer"
                                    data-clipboard-text="{{ url('app_redirect', { code: shortUrl.code }) }}"
                                    title="{{ url('app_redirect', { code: shortUrl.code }) }}"
                                 >
                                     {{ url('app_redirect', { code: shortUrl.code }) }}
-                                </a>
+                                </span>
                             </td>
                             <td>
                                 <a href="{{ shortUrl.url }}" title="{{ shortUrl.url }}" target="_blank">

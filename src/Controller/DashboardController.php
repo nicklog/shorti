@@ -38,7 +38,8 @@ final class DashboardController extends AbstractController
     }
 
     public function __invoke(
-        Request $request
+        Request $request,
+        string $_route
     ): Response {
         $form = $this->createForm(ShortUrlQuickType::class);
         $form->handleRequest($request);
@@ -49,6 +50,8 @@ final class DashboardController extends AbstractController
 
             $this->entityManager->persist($shortUrl);
             $this->entityManager->flush();
+
+            return $this->redirectToRoute($_route);
         }
 
         return $this->render('default/index.html.twig', [
