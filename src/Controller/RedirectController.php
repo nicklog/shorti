@@ -43,6 +43,10 @@ final class RedirectController extends AbstractController
             throw $this->createNotFoundException();
         }
 
+        if (! $shortUrl->isEnabled()) {
+            throw $this->createNotFoundException();
+        }
+
         if ($shortUrl->getDomains()->count() > 0 && ! $shortUrl->getDomainsAsString()->contains($request->getHost())) {
             throw $this->createNotFoundException();
         }
