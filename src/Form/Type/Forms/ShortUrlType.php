@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Type;
 
 final class ShortUrlType extends AbstractType
 {
@@ -21,12 +22,16 @@ final class ShortUrlType extends AbstractType
     {
         $builder
             ->add('code', TextType::class, [
-                'label'    => 'Short-Code',
-                'required' => false,
-                'attr'     => [
+                'label'       => 'Short-Code',
+                'required'    => false,
+                'constraints' =>
+                    [
+                        new Type('alnum'),
+                    ],
+                'attr'        => [
                     'placeholder' => 'ex. L1d3Ye',
                 ],
-                'help'     => 'If you let this empty a code will be automatically generated.',
+                'help'        => 'If you let this empty a code will be automatically generated.',
             ])
             ->add('title', TextType::class, [
                 'label'    => 'Title',
