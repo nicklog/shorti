@@ -16,9 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/profile", name="app_profile_")
- */
+#[Route(path: '/admin/profile', name: 'app_profile_')]
 final class ProfileController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
@@ -41,9 +39,7 @@ final class ProfileController extends AbstractController
         $this->flashBagHelper     = $flashBagHelper;
     }
 
-    /**
-     * @Route("", name="index")
-     */
+    #[Route(path: '', name: 'index')]
     public function profile(Request $request, User $user): Response
     {
         $form = $this->formFactory->create(UserProfileType::class, $user);
@@ -64,9 +60,7 @@ final class ProfileController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/password", name="password")
-     */
+    #[Route(path: '/password', name: 'password')]
     public function password(Request $request, User $user): Response
     {
         $form = $this->formFactory->create(UserPasswordType::class);

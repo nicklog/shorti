@@ -16,9 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use function assert;
 
-/**
- * @Route("/admin", name="app_index")
- */
+#[Route(path: '/admin', name: 'app_index')]
 final class DashboardController extends AbstractController
 {
     private EntityManagerInterface $entityManager;

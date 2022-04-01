@@ -62,7 +62,7 @@ final class ShortUrlType extends AbstractType
         ]);
     }
 
-    public function getParent(): string
+    public function getParent(): ?string
     {
         return ShortUrlQuickType::class;
     }

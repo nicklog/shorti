@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
-use Rector\Php74\Rector\Property\TypedPropertyRector;
-use Rector\Set\ValueObject\SetList;
+use Rector\Set\ValueObject\LevelSetList;
+use Rector\Symfony\Set\SymfonyLevelSetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -15,9 +15,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // here we can define, what sets of rules will be applied
     // tip: use "SetList" class to autocomplete sets
-    $containerConfigurator->import(\Rector\Symfony\Set\SymfonyLevelSetList::UP_TO_SYMFONY_60);
-
-    // register single rule
-    $services = $containerConfigurator->services();
-    $services->set(TypedPropertyRector::class);
+//    $containerConfigurator->import(SymfonyLevelSetList::UP_TO_SYMFONY_60);
+    $containerConfigurator->import(LevelSetList::UP_TO_PHP_81);
 };

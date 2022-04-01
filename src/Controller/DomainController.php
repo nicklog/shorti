@@ -19,9 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use function assert;
 
 /**
- * @Route("/admin/domains", name="app_domain_")
  * @IsGranted("ROLE_ADMIN")
  */
+#[Route(path: '/admin/domains', name: 'app_domain_')]
 final class DomainController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
@@ -44,15 +44,12 @@ final class DomainController extends AbstractController
         $this->paginator        = $paginator;
     }
 
-    /**
-     * @Route("", name="index")
-     */
+    #[Route(path: '', name: 'index')]
     public function index(Request $request): Response
     {
         $qb = $this->domainRepository->createQueryBuilder('p');
 
-        $page = $request->query->getInt('page', 1);
-
+        $page      = $request->query->getInt('page', 1);
         $sort      = $request->query->filter('sort', 'p.id');
         $direction = $request->query->filter('direction', 'asc');
 
@@ -65,9 +62,7 @@ final class DomainController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/add", name="add")
-     */
+    #[Route(path: '/add', name: 'add')]
     public function add(Request $request): Response
     {
         $form = $this->createForm(DomainType::class);
@@ -90,9 +85,7 @@ final class DomainController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{domain}/edit", name="edit")
-     */
+    #[Route(path: '/{domain}/edit', name: 'edit')]
     public function edit(Request $request, Domain $domain): Response
     {
         $form = $this->createForm(DomainType::class, $domain);
@@ -112,9 +105,7 @@ final class DomainController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{domain}/remove", name="remove")
-     */
+    #[Route(path: '/{domain}/remove', name: 'remove')]
     public function remove(Request $request, Domain $domain): Response
     {
         $this->entityManager->remove($domain);

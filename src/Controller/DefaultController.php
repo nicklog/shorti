@@ -8,9 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/", name="app")
- */
+#[Route(path: '/', name: 'app')]
 final class DefaultController extends AbstractController
 {
     public function __invoke(): Response

@@ -20,9 +20,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use function assert;
 
 /**
- * @Route("/admin/users", name="app_user_")
  * @IsGranted("ROLE_ADMIN")
  */
+#[Route(path: '/admin/users', name: 'app_user_')]
 final class UserController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
@@ -49,15 +49,12 @@ final class UserController extends AbstractController
         $this->userPasswordHasher = $userPasswordHasher;
     }
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(Request $request): Response
     {
         $qb = $this->userRepository->createQueryBuilder('p');
 
-        $page = $request->query->getInt('page', 1);
-
+        $page      = $request->query->getInt('page', 1);
         $sort      = $request->query->filter('sort', 'p.id');
         $direction = $request->query->filter('direction', 'asc');
 
@@ -70,9 +67,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/add", name="add")
-     */
+    #[Route(path: '/add', name: 'add')]
     public function add(Request $request): Response
     {
         $form = $this->createForm(UserType::class);
@@ -100,9 +95,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{user}/edit", name="edit")
-     */
+    #[Route(path: '/{user}/edit', name: 'edit')]
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -127,9 +120,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{user}/remove", name="remove")
-     */
+    #[Route(path: '/{user}/remove', name: 'remove')]
     public function remove(Request $request, User $user): Response
     {
         $this->entityManager->remove($user);
@@ -140,9 +131,7 @@ final class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index');
     }
 
-    /**
-     * @Route("/{user}/enable", name="enable")
-     */
+    #[Route(path: '/{user}/enable', name: 'enable')]
     public function enable(Request $request, User $user): Response
     {
         $user->setEnable(true);
@@ -155,9 +144,7 @@ final class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index');
     }
 
-    /**
-     * @Route("/{user}/disable", name="disable")
-     */
+    #[Route(path: '/{user}/disable', name: 'disable')]
     public function disable(Request $request, User $user): Response
     {
         $user->setEnable(false);

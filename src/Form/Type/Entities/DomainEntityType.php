@@ -19,7 +19,7 @@ final class DomainEntityType extends AbstractType
         ]);
     }
 
-    public function getParent(): string
+    public function getParent(): ?string
     {
         return EntityType::class;
     }

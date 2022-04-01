@@ -17,9 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use function assert;
 
-/**
- * @Route("/admin/setup", name="app_setup")
- */
+#[Route(path: '/admin/setup', name: 'app_setup')]
 final class SetupController extends AbstractController
 {
     private UserRepository $userRepository;

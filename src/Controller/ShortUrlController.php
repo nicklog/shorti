@@ -17,9 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use function assert;
 
-/**
- * @Route("/admin/short-urls", name="app_short_url_")
- */
+#[Route(path: '/admin/short-urls', name: 'app_short_url_')]
 final class ShortUrlController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
@@ -42,15 +40,12 @@ final class ShortUrlController extends AbstractController
         $this->paginator          = $paginator;
     }
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(Request $request): Response
     {
         $qb = $this->shortUrlRepository->createQueryBuilder('p');
 
-        $page = $request->query->getInt('page', 1);
-
+        $page      = $request->query->getInt('page', 1);
         $sort      = $request->query->filter('sort', 'p.id');
         $direction = $request->query->filter('direction', 'desc');
 
@@ -63,9 +58,7 @@ final class ShortUrlController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/add", name="add")
-     */
+    #[Route(path: '/add', name: 'add')]
     public function add(Request $request): Response
     {
         $form = $this->createForm(ShortUrlType::class);
@@ -88,9 +81,7 @@ final class ShortUrlController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{shortUrl}/edit", name="edit")
-     */
+    #[Route(path: '/{shortUrl}/edit', name: 'edit')]
     public function edit(Request $request, ShortUrl $shortUrl): Response
     {
         $form = $this->createForm(ShortUrlType::class, $shortUrl);
@@ -110,9 +101,7 @@ final class ShortUrlController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{shortUrl}/remove", name="remove")
-     */
+    #[Route(path: '/{shortUrl}/remove', name: 'remove')]
     public function remove(Request $request, ShortUrl $shortUrl): Response
     {
         $this->entityManager->remove($shortUrl);
@@ -123,9 +112,7 @@ final class ShortUrlController extends AbstractController
         return $this->redirectToRoute('app_short_url_index');
     }
 
-    /**
-     * @Route("/{shortUrl}/enable", name="enable")
-     */
+    #[Route(path: '/{shortUrl}/enable', name: 'enable')]
     public function enable(Request $request, ShortUrl $shortUrl): Response
     {
         $shortUrl->enable();
@@ -138,9 +125,7 @@ final class ShortUrlController extends AbstractController
         return $this->redirectToRoute('app_short_url_index');
     }
 
-    /**
-     * @Route("/{shortUrl}/disable", name="disable")
-     */
+    #[Route(path: '/{shortUrl}/disable', name: 'disable')]
     public function disable(Request $request, ShortUrl $shortUrl): Response
     {
         $shortUrl->disable();
