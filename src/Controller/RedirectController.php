@@ -17,20 +17,11 @@ use Throwable;
 
 final class RedirectController extends AbstractController
 {
-    private ShortUrlRepository $shortUrlRepository;
-
-    private EntityManagerInterface $entityManager;
-
-    private LoggerInterface $logger;
-
     public function __construct(
-        ShortUrlRepository $shortUrlRepository,
-        EntityManagerInterface $entityManager,
-        LoggerInterface $logger,
+        private readonly ShortUrlRepository $shortUrlRepository,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly LoggerInterface $logger
     ) {
-        $this->shortUrlRepository = $shortUrlRepository;
-        $this->entityManager      = $entityManager;
-        $this->logger             = $logger;
     }
 
     public function __invoke(

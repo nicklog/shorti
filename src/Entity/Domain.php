@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Common\AbstractEntity;
+use App\Repository\DomainRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 
-#[ORM\Entity(repositoryClass: 'App\Repository\DomainRepository')]
-class Domain extends AbstractEntity
+#[ORM\Entity(repositoryClass: DomainRepository::class)]
+class Domain extends AbstractEntity implements Stringable
 {
     /** @var Collection<int, ShortUrl> */
-    #[ORM\ManyToMany(targetEntity: 'App\Entity\ShortUrl', mappedBy: 'domains', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: ShortUrl::class, mappedBy: 'domains', cascade: ['persist', 'remove'])]
     private Collection $shortUrls;
 
     #[ORM\Column(type: 'string', nullable: false, unique: true)]

@@ -12,7 +12,7 @@ use function assert;
 
 final class FlashBagHelper
 {
-    private FlashBagInterface $flashBag;
+    private readonly FlashBagInterface $flashBag;
 
     public function __construct(RequestStack $requestStack)
     {

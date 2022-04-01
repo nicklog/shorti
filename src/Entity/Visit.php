@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Common\AbstractEntity;
+use App\Repository\VisitRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: 'App\Repository\VisitRepository')]
+#[ORM\Entity(repositoryClass: VisitRepository::class)]
 class Visit extends AbstractEntity
 {
     #[ORM\ManyToOne(targetEntity: 'App\Entity\ShortUrl', inversedBy: 'visits', cascade: ['persist'])]

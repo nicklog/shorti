@@ -1,15 +1,10 @@
 <?php
-
+// phpcs:disable
 declare(strict_types=1);
 
 namespace App\Domain;
 
-use MyCLabs\Enum\Enum;
-
-/**
- * @method static self ADMIN()
- */
-final class Role extends Enum
+enum Role: string
 {
-    public const ADMIN = 'ROLE_ADMIN';
+    case ADMIN = 'ROLE_ADMIN';
 }

@@ -19,24 +19,12 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/admin/profile', name: 'app_profile_')]
 final class ProfileController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-
-    private FormFactoryInterface $formFactory;
-
-    private UserPasswordHasherInterface $userPasswordHasher;
-
-    private FlashBagHelper $flashBagHelper;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        FormFactoryInterface $formFactory,
-        UserPasswordHasherInterface $userPasswordHasher,
-        FlashBagHelper $flashBagHelper,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
+        private readonly FlashBagHelper $flashBagHelper
     ) {
-        $this->entityManager      = $entityManager;
-        $this->formFactory        = $formFactory;
-        $this->userPasswordHasher = $userPasswordHasher;
-        $this->flashBagHelper     = $flashBagHelper;
     }
 
     #[Route(path: '', name: 'index')]

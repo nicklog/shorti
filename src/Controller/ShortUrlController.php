@@ -20,24 +20,12 @@ use function assert;
 #[Route(path: '/admin/short-urls', name: 'app_short_url_')]
 final class ShortUrlController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-
-    private ShortUrlRepository $shortUrlRepository;
-
-    private FlashBagHelper $flashBagHelper;
-
-    private PaginatorInterface $paginator;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ShortUrlRepository $shortUrlRepository,
-        FlashBagHelper $flashBagHelper,
-        PaginatorInterface $paginator,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly ShortUrlRepository $shortUrlRepository,
+        private readonly FlashBagHelper $flashBagHelper,
+        private readonly PaginatorInterface $paginator
     ) {
-        $this->entityManager      = $entityManager;
-        $this->shortUrlRepository = $shortUrlRepository;
-        $this->flashBagHelper     = $flashBagHelper;
-        $this->paginator          = $paginator;
     }
 
     #[Route(path: '/', name: 'index')]

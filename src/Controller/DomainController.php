@@ -24,24 +24,12 @@ use function assert;
 #[Route(path: '/admin/domains', name: 'app_domain_')]
 final class DomainController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-
-    private DomainRepository $domainRepository;
-
-    private FlashBagHelper $flashBagHelper;
-
-    private PaginatorInterface $paginator;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        DomainRepository $domainRepository,
-        FlashBagHelper $flashBagHelper,
-        PaginatorInterface $paginator,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly DomainRepository $domainRepository,
+        private readonly FlashBagHelper $flashBagHelper,
+        private readonly PaginatorInterface $paginator
     ) {
-        $this->entityManager    = $entityManager;
-        $this->domainRepository = $domainRepository;
-        $this->flashBagHelper   = $flashBagHelper;
-        $this->paginator        = $paginator;
     }
 
     #[Route(path: '', name: 'index')]

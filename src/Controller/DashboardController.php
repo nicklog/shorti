@@ -19,20 +19,11 @@ use function assert;
 #[Route(path: '/admin', name: 'app_index')]
 final class DashboardController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-
-    private ShortUrlRepository $shortUrlRepository;
-
-    private VisitRepository $visitRepository;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ShortUrlRepository $shortUrlRepository,
-        VisitRepository $visitRepository
+        private readonly EntityManagerInterface $entityManager,
+        private readonly ShortUrlRepository $shortUrlRepository,
+        private readonly VisitRepository $visitRepository
     ) {
-        $this->entityManager      = $entityManager;
-        $this->shortUrlRepository = $shortUrlRepository;
-        $this->visitRepository    = $visitRepository;
     }
 
     public function __invoke(

@@ -25,28 +25,13 @@ use function assert;
 #[Route(path: '/admin/users', name: 'app_user_')]
 final class UserController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-
-    private UserRepository $userRepository;
-
-    private FlashBagHelper $flashBagHelper;
-
-    private PaginatorInterface $paginator;
-
-    private UserPasswordHasherInterface $userPasswordHasher;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        UserRepository $userRepository,
-        FlashBagHelper $flashBagHelper,
-        PaginatorInterface $paginator,
-        UserPasswordHasherInterface $userPasswordHasher,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserRepository $userRepository,
+        private readonly FlashBagHelper $flashBagHelper,
+        private readonly PaginatorInterface $paginator,
+        private readonly UserPasswordHasherInterface $userPasswordHasher
     ) {
-        $this->entityManager      = $entityManager;
-        $this->userRepository     = $userRepository;
-        $this->flashBagHelper     = $flashBagHelper;
-        $this->paginator          = $paginator;
-        $this->userPasswordHasher = $userPasswordHasher;
     }
 
     #[Route(path: '/', name: 'index')]

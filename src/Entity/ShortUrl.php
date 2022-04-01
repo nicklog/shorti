@@ -5,20 +5,21 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Common\AbstractEntity;
+use App\Repository\ShortUrlRepository;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: 'App\Repository\ShortUrlRepository')]
+#[ORM\Entity(repositoryClass: ShortUrlRepository::class)]
 class ShortUrl extends AbstractEntity
 {
     /** @var Collection<int, Domain> */
-    #[ORM\ManyToMany(targetEntity: 'App\Entity\Domain', inversedBy: 'shortUrls', cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: Domain::class, inversedBy: 'shortUrls', cascade: ['persist'])]
     private Collection $domains;
 
     /** @var Collection<int, Visit> */
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Visit', mappedBy: 'shortUrl', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Visit::class, mappedBy: 'shortUrl', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $visits;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false, options: ['collation' => 'utf8mb4_bin'])]
@@ -34,7 +35,7 @@ class ShortUrl extends AbstractEntity
     private bool $enabled = true;
 
     #[ORM\Column(type: 'datetimeutc', nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?DateTimeInterface $lastUse;
+    private ?DateTimeInterface $lastUse = null;
 
     public function __construct()
     {

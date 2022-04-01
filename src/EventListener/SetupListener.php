@@ -13,14 +13,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SetupListener implements EventSubscriberInterface
 {
-    private UserRepository $userRepository;
-
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UserRepository $userRepository, UrlGeneratorInterface $urlGenerator)
-    {
-        $this->userRepository = $userRepository;
-        $this->urlGenerator   = $urlGenerator;
+    public function __construct(
+        private readonly UserRepository $userRepository,
+        private readonly UrlGeneratorInterface $urlGenerator
+    ) {
     }
 
     /**

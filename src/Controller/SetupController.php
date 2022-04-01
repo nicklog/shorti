@@ -20,20 +20,11 @@ use function assert;
 #[Route(path: '/admin/setup', name: 'app_setup')]
 final class SetupController extends AbstractController
 {
-    private UserRepository $userRepository;
-
-    private UserPasswordHasherInterface $userPasswordHasher;
-
-    private EntityManagerInterface $entityManager;
-
     public function __construct(
-        UserRepository $userRepository,
-        UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager,
+        private readonly UserRepository $userRepository,
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
+        private readonly EntityManagerInterface $entityManager
     ) {
-        $this->userRepository     = $userRepository;
-        $this->userPasswordHasher = $userPasswordHasher;
-        $this->entityManager      = $entityManager;
     }
 
     public function __invoke(Request $request): Response
