@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Url;
@@ -27,6 +28,7 @@ final class ShortUrlQuickType extends AbstractType
                 new Url(),
             ],
             'required'    => false,
+            'empty_data'  => '',
         ]);
     }
 
@@ -34,6 +36,11 @@ final class ShortUrlQuickType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class'  => ShortUrl::class,
+            'empty_data'  => static function (FormInterface $form): ShortUrl {
+                return new ShortUrl(
+                    $form->get('url')->getData() ?? ''
+                );
+            },
             'html5'       => false,
             'constraints' => [
                 new UniqueEntity([

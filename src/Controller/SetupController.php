@@ -42,7 +42,7 @@ final class SetupController extends AbstractController
             assert($user instanceof User);
 
             $user->setPassword($this->userPasswordHasher->hashPassword($user, $password));
-            $user->addRole(Role::ADMIN());
+            $user->addRole(Role::ADMIN);
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();

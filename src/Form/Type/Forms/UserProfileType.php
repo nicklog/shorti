@@ -24,6 +24,7 @@ final class UserProfileType extends AbstractType
             'constraints' => [
                 new NotBlank(),
             ],
+            'empty_data'  => '',
         ]);
     }
 

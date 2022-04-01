@@ -5,25 +5,15 @@ declare(strict_types=1);
 namespace App\EventListener;
 
 use NunoMaduro\Collision\Writer;
-use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleErrorEvent;
 use Symfony\Component\Console\Exception\ExceptionInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Whoops\Exception\Inspector;
 
-final class ErrorListener implements EventSubscriberInterface
+#[AsEventListener]
+final class ErrorListener
 {
-    /**
-     * @inheritDoc
-     */
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            ConsoleEvents::ERROR => 'onConsoleError',
-        ];
-    }
-
-    public function onConsoleError(ConsoleErrorEvent $event): void
+    public function __invoke(ConsoleErrorEvent $event): void
     {
         $error = $event->getError();
 

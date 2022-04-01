@@ -5,23 +5,21 @@ declare(strict_types=1);
 namespace App\Entity\Common;
 
 use App\Infrastructure\Error\InvalidArgumentTypeError;
-use DateTime;
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
-
-use function get_debug_type;
 
 abstract class AbstractEntity implements Entity
 {
     use Modified;
 
-    #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true], nullable: false)]
+    #[ORM\Column(name: 'id', type: 'integer', nullable: false, options: ['unsigned' => true])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected ?int $id = null;
 
     public function __construct()
     {
-        $this->created = new DateTime();
+        $this->created = Carbon::now();
     }
 
     public function getId(): ?int
@@ -34,10 +32,10 @@ abstract class AbstractEntity implements Entity
         return $this->id !== null;
     }
 
-    public function equals(self $self): bool
+    public function equals(?self $self): bool
     {
         if (! $self instanceof static) {
-            throw new InvalidArgumentTypeError(static::class, get_debug_type($self));
+            throw new InvalidArgumentTypeError(static::class, $self);
         }
 
         return $this->getId() === $self->getId();

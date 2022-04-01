@@ -8,7 +8,7 @@ Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
 
-    .addEntry('app', './assets/js/app.js')
+    .addEntry('app', './assets/js/app.ts')
 
     .copyFiles({
         from: './assets/images',
@@ -18,6 +18,7 @@ Encore
 
     .cleanupOutputBeforeBuild()
 
+    .enableTypeScriptLoader()
     .enableSourceMaps(!Encore.isProduction())
     .enableIntegrityHashes(Encore.isProduction())
     .enableVersioning()

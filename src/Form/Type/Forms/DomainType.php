@@ -8,6 +8,7 @@ use App\Entity\Domain;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -24,6 +25,7 @@ final class DomainType extends AbstractType
                 new NotBlank(),
             ],
             'required'    => false,
+            'empty_data'  => '',
         ]);
     }
 
@@ -31,6 +33,11 @@ final class DomainType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Domain::class,
+            'empty_data' => static function (FormInterface $form): Domain {
+                return new Domain(
+                    $form->get('name')->getData() ?? ''
+                );
+            },
             'html5'      => false,
         ]);
     }

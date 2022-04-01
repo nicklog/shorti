@@ -17,19 +17,20 @@ final class UserPasswordType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('password', PasswordType::class, [
-            'label'       => 'Current password',
-            'attr'        => ['placeholder' => 'Current password'],
-            'constraints' => [
-                new UserPassword(),
-            ],
-        ]);
-        $builder->add('passwordNew', NewPasswordType::class, [
-            'first_options' => [
-                'label' => 'New password',
-                'attr'  => ['placeholder' => 'New password'],
-            ],
-            'mapped'        => false,
-        ]);
+        $builder
+            ->add('password', PasswordType::class, [
+                'label'       => 'Current password',
+                'attr'        => ['placeholder' => 'Current password'],
+                'constraints' => [
+                    new UserPassword(),
+                ],
+            ])
+            ->add('passwordNew', NewPasswordType::class, [
+                'first_options' => [
+                    'label' => 'New password',
+                    'attr'  => ['placeholder' => 'New password'],
+                ],
+                'mapped'        => false,
+            ]);
     }
 }

@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\EventListener;
 
 use App\Repository\UserRepository;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class SetupListener implements EventSubscriberInterface
+#[AsEventListener]
+final class SetupListener
 {
     public function __construct(
         private readonly UserRepository $userRepository,
@@ -19,17 +19,7 @@ final class SetupListener implements EventSubscriberInterface
     ) {
     }
 
-    /**
-     * @inheritDoc
-     */
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::REQUEST => 'setup',
-        ];
-    }
-
-    public function setup(RequestEvent $event): void
+    public function __invoke(RequestEvent $event): void
     {
         if (! $event->isMainRequest()) {
             return;

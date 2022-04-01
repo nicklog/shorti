@@ -11,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: VisitRepository::class)]
 class Visit extends AbstractEntity
 {
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\ShortUrl', inversedBy: 'visits', cascade: ['persist'])]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\ShortUrl', cascade: ['persist'], inversedBy: 'visits')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ShortUrl $shortUrl;
 
     #[ORM\Column(type: 'text', nullable: true)]

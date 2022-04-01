@@ -18,22 +18,24 @@ class Domain extends AbstractEntity implements Stringable
     #[ORM\ManyToMany(targetEntity: ShortUrl::class, mappedBy: 'domains', cascade: ['persist', 'remove'])]
     private Collection $shortUrls;
 
-    #[ORM\Column(type: 'string', nullable: false, unique: true)]
-    private ?string $name = null;
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    private string $name;
 
-    public function __construct()
-    {
+    public function __construct(
+        string $name
+    ) {
         parent::__construct();
 
+        $this->name      = $name;
         $this->shortUrls = new ArrayCollection();
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(?string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block pageActions %}
-    <a class="btn btn-primary" href="{{ path('app_user_add') }}">Add user</a>
+    <a class="btn btn-primary" href="{{ path('app_user_add') }}">Add</a>
 {% endblock %}
 
 {% block content %}
@@ -34,15 +34,15 @@
                                 <div class="btn-group">
                                     {% if user.equals(app.user) == false %}
                                         {% if user.enable != true %}
-                                            <a href="{{ path('app_user_enable', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.enable'|trans }}" class="btn btn-sm btn-danger"><span class="iconify" data-icon="fa-solid:circle"></span></a>
+                                            <a href="{{ path('app_user_enable', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.enable'|trans }}" class="btn btn-sm btn-danger"><span class="iconify" data-icon="fa6-solid:circle"></span></a>
                                         {% else %}
-                                            <a href="{{ path('app_user_disable', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.disable'|trans }}" class="btn btn-sm btn-success"><span class="iconify" data-icon="fa-solid:circle"></span></a>
+                                            <a href="{{ path('app_user_disable', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.disable'|trans }}" class="btn btn-sm btn-success"><span class="iconify" data-icon="fa6-solid:circle"></span></a>
                                         {% endif %}
-                                        <a href="{{ path('app_user_edit', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="iconify" data-icon="fa-solid:edit"></span></a>
-                                        <a href="{{ path('app_user_remove', { user: user.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="iconify" data-icon="fa-solid:trash"></span></a>
+                                        <a href="{{ path('app_user_edit', { user: user.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="iconify" data-icon="fa6-solid:pencil"></span></a>
+                                        <a href="{{ path('app_user_remove', { user: user.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="iconify" data-icon="fa6-solid:trash"></span></a>
                                     {% else %}
-                                        <span class="btn btn-sm btn-primary disabled"><span class="iconify" data-icon="fa-solid:edit"></span></span>
-                                        <span class="btn btn-sm bs-confirmation btn-danger disabled"><span class="iconify" data-icon="fa-solid:trash"></span></span>
+                                        <span class="btn btn-sm btn-primary disabled"><span class="iconify" data-icon="fa6-solid:pencil"></span></span>
+                                        <span class="btn btn-sm bs-confirmation btn-danger disabled"><span class="iconify" data-icon="fa6-solid:trash"></span></span>
                                     {% endif %}
                                 </div>
                             </td>

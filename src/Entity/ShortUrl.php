@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Common\AbstractEntity;
 use App\Repository\ShortUrlRepository;
+use App\Util\ShortyUtil;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,14 +20,14 @@ class ShortUrl extends AbstractEntity
     private Collection $domains;
 
     /** @var Collection<int, Visit> */
-    #[ORM\OneToMany(targetEntity: Visit::class, mappedBy: 'shortUrl', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'shortUrl', targetEntity: Visit::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $visits;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false, options: ['collation' => 'utf8mb4_bin'])]
-    private ?string $code = null;
+    private string $code;
 
     #[ORM\Column(type: 'text', unique: true, nullable: false)]
-    private ?string $url = null;
+    private string $url;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $title = null;
@@ -37,9 +38,14 @@ class ShortUrl extends AbstractEntity
     #[ORM\Column(type: 'datetimeutc', nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?DateTimeInterface $lastUse = null;
 
-    public function __construct()
-    {
+    public function __construct(
+        string $url,
+        ?string $code = null,
+    ) {
         parent::__construct();
+
+        $this->code = $code ?? ShortyUtil::generateCode();
+        $this->url  = $url;
 
         $this->visits  = new ArrayCollection();
         $this->domains = new ArrayCollection();
@@ -85,24 +91,24 @@ class ShortUrl extends AbstractEntity
         return $this;
     }
 
-    public function getCode(): ?string
+    public function getCode(): string
     {
         return $this->code;
     }
 
-    public function setCode(?string $code): self
+    public function setCode(string $code): self
     {
         $this->code = $code;
 
         return $this;
     }
 
-    public function getUrl(): ?string
+    public function getUrl(): string
     {
         return $this->url;
     }
 
-    public function setUrl(?string $url): self
+    public function setUrl(string $url): self
     {
         $this->url = $url;
 

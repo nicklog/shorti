@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace App\EventListener;
 
 use App\Entity\Common\AbstractEntity;
-use DateTime;
+use App\Infrastructure\Clock\Clock;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 
 final class EntityListener implements EventSubscriber
 {
+    public function __construct(
+        private readonly Clock $clock
+    ) {
+    }
+
     /**
      * @inheritDoc
      */
@@ -53,6 +58,6 @@ final class EntityListener implements EventSubscriber
             return;
         }
 
-        $entity->setUpdated(new DateTime());
+        $entity->setUpdated($this->clock->now());
     }
 }

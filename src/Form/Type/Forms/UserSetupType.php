@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -29,6 +30,7 @@ final class UserSetupType extends AbstractType
                     new NotBlank(),
                     new Email(),
                 ],
+                'empty_data'  => '',
             ])
             ->add('password', NewPasswordType::class, [
                 'first_options'  => [
@@ -46,7 +48,12 @@ final class UserSetupType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'factory'     => User::class,
+            'data_class'  => User::class,
+            'empty_data'  => static function (FormInterface $form): User {
+                return new User(
+                    $form->get('email')->getData() ?? ''
+                );
+            },
             'constraints' => [
                 new UniqueEntity([
                     'fields' => ['email'],

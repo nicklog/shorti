@@ -11,6 +11,7 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Infrastructure/Error/'
             - '../src/Infrastructure/Logger/'
-            - '../src/Infrastructure/Migrations/'
             - '../src/Util/'
             - '../src/Kernel.php'
+
+    App\Infrastructure\Clock\Clock: '@App\Infrastructure\Clock\SystemClock'

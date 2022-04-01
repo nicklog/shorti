@@ -12,6 +12,7 @@ use InvalidArgumentException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use function array_map;
 use function array_search;
 use function array_unique;
 use function implode;
@@ -40,11 +41,6 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
         parent::__construct();
 
         $this->email = $email;
-    }
-
-    public function getUsername(): string
-    {
-        return $this->getEmail();
     }
 
     public function getUserIdentifier(): string
@@ -94,21 +90,29 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
         $roles = $this->roles;
 
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = Role::USER->value;
 
         return array_unique($roles);
     }
 
     public function addRole(string | Role $role): void
     {
-        $role = (string) $role;
+        if ($role instanceof Role) {
+            $role = $role->value;
+        }
 
         if (in_array($role, $this->roles, true)) {
             return;
         }
 
-        if (! Role::isValid($role)) {
-            throw new InvalidArgumentException(sprintf('%s given but $role has to be one of these values: %s', $role, implode(', ', Role::toArray())));
+        if (Role::tryFrom($role) === null) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    '%s given but $role has to be one of these values: %s',
+                    $role,
+                    implode(', ', array_map(static fn (Role $role) => $role->value, Role::cases()))
+                )
+            );
         }
 
         $this->roles[] = $role;
@@ -116,18 +120,15 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
     public function removeRole(string | Role $role): void
     {
-        $role = (string) $role;
+        if ($role instanceof Role) {
+            $role = $role->value;
+        }
 
         if (! in_array($role, $this->roles, true)) {
             return;
         }
 
         unset($this->roles[array_search($role, $this->roles, true)]);
-    }
-
-    public function getSalt(): ?string
-    {
-        return null;
     }
 
     public function eraseCredentials(): void

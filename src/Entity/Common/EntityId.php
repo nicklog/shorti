@@ -6,5 +6,5 @@ namespace App\Entity\Common;
 
 interface EntityId
 {
-    public function getId(): mixed;
+    public function getId(): ?int;
 }

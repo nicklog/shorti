@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block pageActions %}
-    <a class="btn btn-primary" href="{{ path('app_short_url_add') }}">Add short url</a>
+    <a class="btn btn-primary" href="{{ path('app_short_url_add') }}">Add</a>
 {% endblock %}
 
 {% block content %}
@@ -27,6 +27,7 @@
                     </thead>
                     <tbody>
                     {% for shortUrl in pagination %}
+                        {% set shortedUrl = url('app_redirect', { code: shortUrl.code }) %}
                         <tr>
                             <td>
                                 <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}">
@@ -42,13 +43,20 @@
                             <td>{{ shortUrl.created|date }}</td>
                             <td class="text-end">
                                 <div class="btn-group">
+                                    <span
+                                            class="copy-to-clipboard btn btn-sm btn-secondary"
+                                            data-clipboard-text="{{ shortedUrl }}"
+                                            title="{{ shortedUrl }}"
+                                    >
+                                        <span class="iconify" data-icon="fa6-solid:clipboard"></span>
+                                    </span>
                                     {% if shortUrl.enabled != true %}
-                                        <a href="{{ path('app_short_url_enable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.enable'|trans }}" class="btn btn-sm btn-danger"><span class="iconify" data-icon="fa-solid:circle"></span></a>
+                                        <a href="{{ path('app_short_url_enable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.enable'|trans }}" class="btn btn-sm btn-danger"><span class="iconify" data-icon="fa6-solid:circle"></span></a>
                                     {% else %}
-                                        <a href="{{ path('app_short_url_disable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.disable'|trans }}" class="btn btn-sm btn-success"><span class="iconify" data-icon="fa-solid:circle"></span></a>
+                                        <a href="{{ path('app_short_url_disable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.disable'|trans }}" class="btn btn-sm btn-success"><span class="iconify" data-icon="fa6-solid:circle"></span></a>
                                     {% endif %}
-                                    <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="iconify" data-icon="fa-solid:edit"></span></a>
-                                    <a href="{{ path('app_short_url_remove', { shortUrl: shortUrl.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="iconify" data-icon="fa-solid:trash"></span></a>
+                                    <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="iconify" data-icon="fa6-solid:pencil"></span></a>
+                                    <a href="{{ path('app_short_url_remove', { shortUrl: shortUrl.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="iconify" data-icon="fa6-solid:trash"></span></a>
                                 </div>
                             </td>
                         </tr>
