@@ -2,23 +2,21 @@ version: '3.6'
 
 services:
   app:
-    build: 
-      context: .
-      dockerfile: Dockerfile-Development
+    image: thecodingmachine/php:8.1-v4-apache-node16
     volumes:
       - .:/var/www/html
-      - ./var/bash_history:/home/docker/bash_history
-      - ${HOME}/.ssh:/home/docker/.ssh
+      - ./var/.bash_history:/home/docker/.bash_history
       - ${HOME}/.composer/:/home/docker/.composer/
     environment:
       - TZ=Europe/Berlin
       - APP_ENV=dev
-      - APP_API_KEY=abc
+      - APP_DEBUG=true
+      - APACHE_DOCUMENT_ROOT=public
     depends_on:
       - database
     networks:
-      internal:
-        ipv4_address: 172.16.83.10
+      apps:
+        ipv4_address: 192.168.170.100
 
   database:
     image: mariadb:latest
@@ -30,13 +28,9 @@ services:
       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
     networks:
-      internal:
-        ipv4_address: 172.16.83.11
+      apps:
+        ipv4_address: 192.168.170.101
 
 networks:
-  internal:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.83.0/24
+  apps:
+    external: true
