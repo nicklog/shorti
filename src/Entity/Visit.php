@@ -7,24 +7,20 @@ namespace App\Entity;
 use App\Entity\Common\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\VisitRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Repository\VisitRepository')]
 class Visit extends AbstractEntity
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ShortUrl", inversedBy="visits", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\ShortUrl', inversedBy: 'visits', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ShortUrl $shortUrl;
 
-    /** @ORM\Column(type="text", nullable=true) */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $referer = null;
 
-    /** @ORM\Column(type="string", nullable=true) */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $remoteAddr = null;
 
-    /** @ORM\Column(type="string", nullable=true) */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $userAgent = null;
 
     public function __construct(ShortUrl $shortUrl)

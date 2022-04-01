@@ -14,11 +14,9 @@ abstract class AbstractEntity implements Entity
 {
     use Modified;
 
-    /**
-     * @ORM\Column(name="id", type="integer", options={"unsigned": true}, nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true], nullable: false)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected ?int $id = null;
 
     public function __construct()

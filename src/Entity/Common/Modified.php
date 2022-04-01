@@ -9,10 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait Modified
 {
-    /** @ORM\Column(name="created", type="datetimeutc", nullable=false, options={"default"="CURRENT_TIMESTAMP"}) */
+    #[ORM\Column(name: 'created', type: 'datetimeutc', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
     protected DateTimeInterface $created;
 
-    /** @ORM\Column(name="updated", type="datetimeutc", nullable=true) */
+    #[ORM\Column(name: 'updated', type: 'datetimeutc', nullable: true)]
     protected ?DateTimeInterface $updated = null;
 
     public function getCreated(): DateTimeInterface

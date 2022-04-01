@@ -10,38 +10,30 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ShortUrlRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Repository\ShortUrlRepository')]
 class ShortUrl extends AbstractEntity
 {
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Domain", inversedBy="shortUrls", cascade={"persist"})
-     *
-     * @var Collection<int, Domain>
-     */
+    /** @var Collection<int, Domain> */
+    #[ORM\ManyToMany(targetEntity: 'App\Entity\Domain', inversedBy: 'shortUrls', cascade: ['persist'])]
     private Collection $domains;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="shortUrl", cascade={"persist", "remove"}, orphanRemoval=true)
-     *
-     * @var Collection<int, Visit>
-     */
+    /** @var Collection<int, Visit> */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Visit', mappedBy: 'shortUrl', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $visits;
 
-    /** @ORM\Column(type="string", unique=true, nullable=false, options={"collation": "utf8mb4_bin"}) */
+    #[ORM\Column(type: 'string', unique: true, nullable: false, options: ['collation' => 'utf8mb4_bin'])]
     private ?string $code = null;
 
-    /** @ORM\Column(type="text", unique=true, nullable=false) */
+    #[ORM\Column(type: 'text', unique: true, nullable: false)]
     private ?string $url = null;
 
-    /** @ORM\Column(type="text", nullable=true) */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $title = null;
 
-    /** @ORM\Column(type="boolean", nullable=false, options={"default": true}) */
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
     private bool $enabled = true;
 
-    /** @ORM\Column(type="datetimeutc", nullable=true, options={"default"="CURRENT_TIMESTAMP"}) */
+    #[ORM\Column(type: 'datetimeutc', nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?DateTimeInterface $lastUse;
 
     public function __construct()

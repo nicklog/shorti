@@ -9,19 +9,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\DomainRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Repository\DomainRepository')]
 class Domain extends AbstractEntity
 {
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ShortUrl", mappedBy="domains", cascade={"persist", "remove"})
-     *
-     * @var Collection<int, ShortUrl>
-     */
+    /** @var Collection<int, ShortUrl> */
+    #[ORM\ManyToMany(targetEntity: 'App\Entity\ShortUrl', mappedBy: 'domains', cascade: ['persist', 'remove'])]
     private Collection $shortUrls;
 
-    /** @ORM\Column(type="string", nullable=false, unique=true) */
+    #[ORM\Column(type: 'string', nullable: false, unique: true)]
     private ?string $name = null;
 
     public function __construct()

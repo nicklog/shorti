@@ -17,25 +17,20 @@ use function implode;
 use function in_array;
 use function sprintf;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Repository\UserRepository')]
 class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /** @ORM\Column(type="string", nullable=false) */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $email;
 
-    /** @ORM\Column(type="string", nullable=true) */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $password = null;
 
-    /** @ORM\Column(type="boolean", nullable=false, options={"default": true}) */
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
     private bool $enable = true;
 
-    /**
-     * @ORM\Column(type="json")
-     *
-     * @var string[]
-     */
+    /** @var string[] */
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
     public function __construct(

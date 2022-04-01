@@ -16,5 +16,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // here we can define, what sets of rules will be applied
     // tip: use "SetList" class to autocomplete sets
 //    $containerConfigurator->import(SymfonyLevelSetList::UP_TO_SYMFONY_60);
-    $containerConfigurator->import(LevelSetList::UP_TO_PHP_81);
+//    $containerConfigurator->import(LevelSetList::UP_TO_PHP_81);
+    $containerConfigurator->import(\Rector\Doctrine\Set\DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES);
+    $containerConfigurator->import(\Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_DBAL_30);
+    $containerConfigurator->import(\Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_CODE_QUALITY);
+    $containerConfigurator->import(\Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_ORM_29);
 };
