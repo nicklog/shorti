@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+
+use function assert;
 
 final class FlashBagHelper
 {
     private FlashBagInterface $flashBag;
 
-    public function __construct(FlashBagInterface $flashBag)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->flashBag = $flashBag;
+        $session = $requestStack->getSession();
+        assert($session instanceof Session);
+        $this->flashBag = $session->getFlashBag();
     }
 
     public function success(string $message): void

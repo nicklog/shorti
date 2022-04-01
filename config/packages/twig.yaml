@@ -1,9 +1,11 @@
 twig:
-    paths: ['%kernel.project_dir%/templates']
-    debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
+    default_path: '%kernel.project_dir%/templates'
     form_themes:
         - '_partials/bootstrap_5_layout.html.twig'
     date:
         format: d.m.Y H:i
         interval_format: '%%d days'
+
+when@test:
+    twig:
+        strict_variables: true
