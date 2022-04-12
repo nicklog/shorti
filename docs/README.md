@@ -1,14 +1,12 @@
 # Shorti
 
+A simple private self hosted URL shortener service.
+
 [![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/nicklog)
 
-[![Docker Build](https://img.shields.io/docker/cloud/build/nicklog/shorti.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/nicklog/shorti)
-[![License](https://img.shields.io/github/license/nicklog/shorti.svg?style=flat-square&logo=license)](https://github.com/nicklog/shorti)
-
-
-##  Requirements
-
-* **Docker**
+[![Github Sponsors](https://img.shields.io/github/v/tag/nicklog/shorti.svg?sort=semver&style=for-the-badge&logo=license)](https://github.com/nicklog/shorti)
+[![License](https://img.shields.io/github/license/nicklog/shorti.svg?style=for-the-badge&logo=license)](https://github.com/nicklog/shorti)
+[![Github Sponsors](https://img.shields.io/github/sponsors/nicklog?style=for-the-badge&logo=license)](https://github.com/nicklog/shorti)
 
 ##  Installation
 
@@ -19,7 +17,7 @@ version: '3.6'
 
 services:
   app:
-    image: nicklog/shorti:latest
+    image: ghcr.io/nicklog/shorti
     environment:
       - TZ=Europe/Berlin
       - DATABASE_NAME=shorti
@@ -31,8 +29,6 @@ services:
       - database
     networks:
       - default
-    ports:
-      - "9000:80"
 
   database:
     image: mariadb:latest
@@ -45,7 +41,7 @@ services:
       - default
 ```
 Change any settings to your needs and then run simply `docker-compose up -d`.  
-You should now be able to access the site under port `9000` or the port you set.
+You should now be able to access the site under port `80`.
 
 With this example setup the website is not secured by https.  
 When you want to secure it I suggest to use a reverse proxy.
