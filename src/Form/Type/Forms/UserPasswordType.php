@@ -12,20 +12,23 @@ use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 final class UserPasswordType extends AbstractType
 {
+    public const FIELD_PASSWORD     = 'password';
+    public const FIELD_PASSWORD_NEW = 'passwordNew';
+
     /**
      * @inheritdoc
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('password', PasswordType::class, [
+            ->add(self::FIELD_PASSWORD, PasswordType::class, [
                 'label'       => 'Current password',
                 'attr'        => ['placeholder' => 'Current password'],
                 'constraints' => [
                     new UserPassword(),
                 ],
             ])
-            ->add('passwordNew', NewPasswordType::class, [
+            ->add(self::FIELD_PASSWORD_NEW, NewPasswordType::class, [
                 'first_options' => [
                     'label' => 'New password',
                     'attr'  => ['placeholder' => 'New password'],

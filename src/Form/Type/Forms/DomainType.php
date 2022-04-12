@@ -33,11 +33,9 @@ final class DomainType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Domain::class,
-            'empty_data' => static function (FormInterface $form): Domain {
-                return new Domain(
-                    $form->get('name')->getData() ?? ''
-                );
-            },
+            'empty_data' => static fn (FormInterface $form): Domain => new Domain(
+                $form->get('name')->getData() ?? ''
+            ),
             'html5'      => false,
         ]);
     }

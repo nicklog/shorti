@@ -11,27 +11,15 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
- * @method User|null find($id, ?int $lockMode = null, ?int $lockVersion = null)
- * @method User[] findAll()
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[] findBy(array $criteria, array $orderBy = null, ?int $limit = null, ?int $offset = null)
+ * @template-extends ServiceEntityRepository<User>
  */
-final class UserRepository extends ServiceEntityRepository implements UserProviderInterface, UserLoaderInterface
+final class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
-    }
-
-    public function findOneByUsernameAndToken(string $username, string $token): ?User
-    {
-        return $this->findOneBy([
-            'username' => $username,
-            'apiToken' => $token,
-        ]);
     }
 
     public function countAll(): int
@@ -57,25 +45,10 @@ final class UserRepository extends ServiceEntityRepository implements UserProvid
             ->setParameter('username', $identifier, Types::STRING)
             ->getOneOrNullResult();
 
-        if ($result === null) {
+        if (! $result instanceof UserInterface) {
             throw new UserNotFoundException();
         }
 
         return $result;
-    }
-
-    public function refreshUser(UserInterface $user): UserInterface
-    {
-        return $this->loadUserByIdentifier($user->getUserIdentifier());
-    }
-
-    public function supportsClass(string $class): bool
-    {
-        return $class === User::class;
-    }
-
-    public function loadUserByUsername(string $username): UserInterface
-    {
-        return $this->loadUserByIdentifier($username);
     }
 }

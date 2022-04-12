@@ -31,21 +31,21 @@ final class EntityListener implements EventSubscriber
 
     public function prePersist(LifecycleEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         $this->updateUpdatedAt($entity);
     }
 
     public function preUpdate(LifecycleEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         $this->updateUpdatedAt($entity);
     }
 
     public function postLoad(LifecycleEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         $this->updateUpdatedAt($entity);
 

@@ -9,10 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Visit|null find($id, ?int $lockMode = null, ?int $lockVersion = null)
- * @method Visit[] findAll()
- * @method Visit|null findOneBy(array $criteria, array $orderBy = null)
- * @method Visit[] findBy(array $criteria, array $orderBy = null, ?int $limit = null, ?int $offset = null)
+ * @template-extends ServiceEntityRepository<Visit>
  */
 final class VisitRepository extends ServiceEntityRepository
 {

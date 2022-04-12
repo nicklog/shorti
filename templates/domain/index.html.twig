@@ -34,8 +34,8 @@
                             <td>{{ domain.created|date }}</td>
                             <td class="text-end">
                                 <div class="btn-group">
-                                    <a href="{{ path('app_domain_edit', { domain: domain.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="iconify" data-icon="fa6-solid:pencil"></span></a>
-                                    <a href="{{ path('app_domain_remove', { domain: domain.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="iconify" data-icon="fa6-solid:trash"></span></a>
+                                    <a href="{{ path('app_domain_edit', { domain: domain.id }) }}" data-bs-toggle="tooltip" title="Edit" class="btn btn-sm btn-primary"><span class="iconify" data-icon="fa6-solid:pencil"></span></a>
+                                    <a href="{{ path('app_domain_remove', { domain: domain.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="Remove" class="btn btn-sm bs-confirmation btn-danger"><span class="iconify" data-icon="fa6-solid:trash"></span></a>
                                 </div>
                             </td>
                         </tr>

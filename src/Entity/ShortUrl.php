@@ -10,7 +10,9 @@ use App\Util\ShortyUtil;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Shapecode\Doctrine\DBAL\Types\DateTimeUTCType;
 
 #[ORM\Entity(repositoryClass: ShortUrlRepository::class)]
 class ShortUrl extends AbstractEntity
@@ -23,19 +25,19 @@ class ShortUrl extends AbstractEntity
     #[ORM\OneToMany(mappedBy: 'shortUrl', targetEntity: Visit::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $visits;
 
-    #[ORM\Column(type: 'string', unique: true, nullable: false, options: ['collation' => 'utf8mb4_bin'])]
+    #[ORM\Column(type: Types::STRING, unique: true, nullable: false, options: ['collation' => 'utf8mb4_bin'])]
     private string $code;
 
-    #[ORM\Column(type: 'text', unique: true, nullable: false)]
+    #[ORM\Column(type: Types::TEXT, unique: true, nullable: false)]
     private string $url;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: false, options: ['default' => true])]
     private bool $enabled = true;
 
-    #[ORM\Column(type: 'datetimeutc', nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(type: DateTimeUTCType::DATETIMEUTC, nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?DateTimeInterface $lastUse = null;
 
     public function __construct(

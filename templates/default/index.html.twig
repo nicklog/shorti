@@ -91,13 +91,14 @@
                             <td class="text-end">
                                 <div class="btn-group">
                                     <span
-                                            class="copy-to-clipboard btn btn-sm btn-primary"
+                                            class="copy-to-clipboard btn btn-sm btn-secondary"
+                                            title="Copy short URL to clipboard"
+                                            data-bs-toggle="tooltip"
                                             data-clipboard-text="{{ shortedUrl }}"
-                                            title="{{ shortedUrl }}"
                                     >
                                         <span class="iconify" data-icon="fa6-solid:clipboard"></span>
                                     </span>
-                                    <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary">
+                                    <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="Edit" class="btn btn-sm btn-primary">
                                         <span class="iconify" data-icon="fa6-solid:pencil"></span>
                                     </a>
                                 </div>

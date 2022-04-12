@@ -62,12 +62,10 @@ final class ShortUrlType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class'  => ShortUrl::class,
-            'empty_data'  => static function (FormInterface $form): ShortUrl {
-                return new ShortUrl(
-                    $form->get('url')->getData() ?? '',
-                    $form->get('code')->getData() ?? '',
-                );
-            },
+            'empty_data'  => static fn (FormInterface $form): ShortUrl => new ShortUrl(
+                $form->get('url')->getData() ?? '',
+                $form->get('code')->getData() ?? '',
+            ),
             'html5'       => false,
             'constraints' => [
                 new UniqueEntity([

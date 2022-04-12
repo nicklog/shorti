@@ -22,7 +22,7 @@
         "symfony/twig-bundle": "^6.0",
         "symfony/monolog-bundle": "^3.7",
         "symfony/security-bundle": "^6.0",
-        "symfony/webpack-encore-bundle": "^1.8",
+        "symfony/webpack-encore-bundle": "^1.14",
 
         "symfony/dependency-injection": "^6.0",
         "symfony/asset": "^6.0",
@@ -60,8 +60,8 @@
         "doctrine/orm": "^2.11",
         "doctrine/dbal": "^3.3",
         "doctrine/event-manager": "^1.1",
-        "doctrine/migrations": "^3.4",
-        "doctrine/persistence": "^2.4",
+        "doctrine/migrations": "^3.5",
+        "doctrine/persistence": "^2.5",
         "doctrine/collections": "^1.6",
 
         "psr/log": "^3.0",
@@ -74,8 +74,7 @@
         "twig/string-extra": "^3.3",
         "twig/extra-bundle": "^3.3",
         "nesbot/carbon": "^2.57",
-        "myclabs/php-enum": "^1.8",
-        "nunomaduro/collision": "^6.1",
+        "nunomaduro/collision": "^6.2",
         "ircmaxell/random-lib": "^1.2",
         "monolog/monolog": "^2.4",
         "filp/whoops": "^2.14",
@@ -85,21 +84,21 @@
     "require-dev": {
         "doctrine/coding-standard": "^9.0",
         "roave/security-advisories": "dev-master",
-        "squizlabs/php_codesniffer": "^3.5",
+        "squizlabs/php_codesniffer": "^3.6",
         "phpunit/phpunit": "^9.5",
         "phpstan/phpstan": "~1.5",
         "phpstan/phpstan-deprecation-rules": "~1.0",
-        "phpstan/phpstan-phpunit": "~1.0",
+        "phpstan/phpstan-phpunit": "~1.1",
         "phpstan/phpstan-strict-rules": "~1.1",
         "phpstan/phpstan-doctrine": "~1.3",
         "phpstan/phpstan-symfony": "~1.1",
         "maglnet/composer-require-checker": "^4.0",
-        "icanhazstring/composer-unused": "^0.7",
-        "symfony/maker-bundle": "^1.26",
+        "icanhazstring/composer-unused": "^0.8",
+        "symfony/maker-bundle": "^1.38",
         "symfony/web-profiler-bundle": "^6.0",
         "symfony/debug-bundle": "^6.0",
         "jetbrains/phpstorm-attributes": "^1.0",
-        "rector/rector": "^0.12.19"
+        "rector/rector": "^0.12"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -121,7 +120,7 @@
         "check": [
             "composer check-platform-reqs -n",
             "composer validate --strict -n",
-            "@unuse",
+            "composer-unused",
             "@cs-check",
             "@phpstan"
         ],
@@ -139,7 +138,6 @@
         "lint-twig": "php bin/console lint:twig src templates --show-deprecations --ansi",
         "lint-yaml": "php bin/console lint:yaml config src translations --parse-tags --ansi",
         "lint-container": "php bin/console lint:container --ansi",
-        "unuse": "composer unused --excludeDir=vendor --excludeDir=node_modules --excludeDir=var --excludeDir=public/checks --ansi",
         "install-codestandards": "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
@@ -160,12 +158,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": "true"
-        },
-        "unused": [
-            "sensio/framework-extra-bundle",
-            "twig/string-extra",
-            "shapecode/doctrine-dbal-datetimeutc"
-        ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

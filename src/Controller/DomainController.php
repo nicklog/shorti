@@ -38,8 +38,8 @@ final class DomainController extends AbstractController
         $qb = $this->domainRepository->createQueryBuilder('p');
 
         $page      = $request->query->getInt('page', 1);
-        $sort      = (string) $request->query->get('sort', 'p.id');
-        $direction = (string) $request->query->get('direction', 'asc');
+        $sort      = $request->query->get('sort', 'p.id');
+        $direction = $request->query->get('direction', 'asc');
 
         $qb->orderBy($sort, $direction);
 

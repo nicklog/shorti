@@ -45,18 +45,19 @@
                                 <div class="btn-group">
                                     <span
                                             class="copy-to-clipboard btn btn-sm btn-secondary"
+                                            title="Copy short URL to clipboard"
                                             data-clipboard-text="{{ shortedUrl }}"
-                                            title="{{ shortedUrl }}"
+                                            data-bs-toggle="tooltip"
                                     >
                                         <span class="iconify" data-icon="fa6-solid:clipboard"></span>
                                     </span>
                                     {% if shortUrl.enabled != true %}
-                                        <a href="{{ path('app_short_url_enable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.enable'|trans }}" class="btn btn-sm btn-danger"><span class="iconify" data-icon="fa6-solid:circle"></span></a>
+                                        <a href="{{ path('app_short_url_enable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="Enable" class="btn btn-sm btn-danger"><span class="iconify" data-icon="fa6-solid:circle"></span></a>
                                     {% else %}
-                                        <a href="{{ path('app_short_url_disable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.disable'|trans }}" class="btn btn-sm btn-success"><span class="iconify" data-icon="fa6-solid:circle"></span></a>
+                                        <a href="{{ path('app_short_url_disable', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="Disable" class="btn btn-sm btn-success"><span class="iconify" data-icon="fa6-solid:circle"></span></a>
                                     {% endif %}
-                                    <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-primary"><span class="iconify" data-icon="fa6-solid:pencil"></span></a>
-                                    <a href="{{ path('app_short_url_remove', { shortUrl: shortUrl.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="{{ 'action.remove'|trans }}" class="btn btn-sm bs-confirmation btn-danger"><span class="iconify" data-icon="fa6-solid:trash"></span></a>
+                                    <a href="{{ path('app_short_url_edit', { shortUrl: shortUrl.id }) }}" data-bs-toggle="tooltip" title="Edit" class="btn btn-sm btn-primary"><span class="iconify" data-icon="fa6-solid:pencil"></span></a>
+                                    <a href="{{ path('app_short_url_remove', { shortUrl: shortUrl.id }) }}" data-confirmation="Remove?" data-bs-toggle="tooltip" title="Remove" class="btn btn-sm bs-confirmation btn-danger"><span class="iconify" data-icon="fa6-solid:trash"></span></a>
                                 </div>
                             </td>
                         </tr>

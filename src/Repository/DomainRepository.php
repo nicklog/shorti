@@ -9,10 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Domain|null find($id, ?int $lockMode = null, ?int $lockVersion = null)
- * @method Domain[] findAll()
- * @method Domain|null findOneBy(array $criteria, array $orderBy = null)
- * @method Domain[] findBy(array $criteria, array $orderBy = null, ?int $limit = null, ?int $offset = null)
+ * @template-extends ServiceEntityRepository<Domain>
  */
 final class DomainRepository extends ServiceEntityRepository
 {

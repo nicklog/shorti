@@ -8,6 +8,7 @@ use App\Entity\Common\AbstractEntity;
 use App\Repository\DomainRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Stringable;
 
@@ -18,7 +19,7 @@ class Domain extends AbstractEntity implements Stringable
     #[ORM\ManyToMany(targetEntity: ShortUrl::class, mappedBy: 'domains', cascade: ['persist', 'remove'])]
     private Collection $shortUrls;
 
-    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[ORM\Column(type: Types::STRING, unique: true, nullable: false)]
     private string $name;
 
     public function __construct(

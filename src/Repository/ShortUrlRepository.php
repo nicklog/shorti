@@ -8,12 +8,13 @@ use App\Entity\ShortUrl;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Persistence\ManagerRegistry;
+use RuntimeException;
+
+use function get_debug_type;
+use function sprintf;
 
 /**
- * @method ShortUrl|null find($id, ?int $lockMode = null, ?int $lockVersion = null)
- * @method ShortUrl[] findAll()
- * @method ShortUrl|null findOneBy(array $criteria, array $orderBy = null)
- * @method ShortUrl[] findBy(array $criteria, array $orderBy = null, ?int $limit = null, ?int $offset = null)
+ * @template-extends ServiceEntityRepository<ShortUrl>
  */
 final class ShortUrlRepository extends ServiceEntityRepository
 {
@@ -24,7 +25,7 @@ final class ShortUrlRepository extends ServiceEntityRepository
 
     public function findOneByCode(string $code): ?ShortUrl
     {
-        return $this
+        $result = $this
             ->getEntityManager()
             ->createQuery(
                 <<<'DQL'
@@ -35,6 +36,19 @@ final class ShortUrlRepository extends ServiceEntityRepository
             )
             ->setParameter('code', $code, Types::STRING)
             ->getOneOrNullResult();
+
+        if ($result === null) {
+            return null;
+        }
+
+        if (! $result instanceof ShortUrl) {
+            throw new RuntimeException(
+                sprintf('Result is type of %s, but should be %s', get_debug_type($result), ShortUrl::class),
+                1649762762410
+            );
+        }
+
+        return $result;
     }
 
     /**

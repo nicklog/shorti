@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\Type\Forms\UserPasswordType;
 use App\Form\Type\Forms\UserProfileType;
 use App\Service\FlashBagHelper;
@@ -14,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route(path: '/admin/profile', name: 'app_profile_')]
 final class ProfileController extends AbstractController
@@ -28,7 +28,7 @@ final class ProfileController extends AbstractController
     }
 
     #[Route(path: '', name: 'index')]
-    public function profile(Request $request, UserInterface $user): Response
+    public function profile(Request $request, User $user): Response
     {
         $form = $this->formFactory->create(UserProfileType::class, $user);
         $form->handleRequest($request);
@@ -49,16 +49,16 @@ final class ProfileController extends AbstractController
     }
 
     #[Route(path: '/password', name: 'password')]
-    public function password(Request $request, UserInterface $user): Response
+    public function password(Request $request, User $user): Response
     {
         $form = $this->formFactory->create(UserPasswordType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $form->get('passwordNew')->getData();
-            $user->setPassword(
-                $this->userPasswordHasher->hashPassword($user, $password)
-            );
+            $password       = $form->get(UserPasswordType::FIELD_PASSWORD_NEW)->getData();
+            $hashedPassword = $this->userPasswordHasher->hashPassword($user, $password);
+
+            $user->setPassword($hashedPassword);
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();

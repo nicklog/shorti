@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Domain\Role;
 use App\Entity\Common\AbstractEntity;
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -22,17 +23,17 @@ use function sprintf;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: Types::STRING, nullable: false)]
     private string $email;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $password = null;
 
-    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: false, options: ['default' => true])]
     private bool $enable = true;
 
     /** @var string[] */
-    #[ORM\Column(type: 'json')]
+    #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
     public function __construct(

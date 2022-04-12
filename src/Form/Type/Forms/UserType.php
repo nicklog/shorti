@@ -53,11 +53,9 @@ final class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class'  => User::class,
-            'empty_data'  => static function (FormInterface $form): User {
-                return new User(
-                    $form->get('email')->getData() ?? ''
-                );
-            },
+            'empty_data'  => static fn (FormInterface $form): User => new User(
+                $form->get('email')->getData()
+            ),
             'constraints' => [
                 new UniqueEntity([
                     'fields' => ['email'],
