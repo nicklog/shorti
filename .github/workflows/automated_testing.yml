@@ -15,7 +15,7 @@ jobs:
       DATABASE_URL: mysql://root:root@localhost:3306/app
 
     services:
-      mysql:
+      mariadb:
         image: mariadb:latest
 
     strategy:
@@ -33,9 +33,6 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           coverage: none
-
-      - name: Install MySQL
-        run: sudo systemctl start mysql.service
 
       - name: Get composer cache directory
         id: composer-cache
@@ -67,7 +64,7 @@ jobs:
         run: composer crc
 
       - name: Composer Unused
-        run: composer-unused
+        run: php vendor/bin/composer-unused
 
       - name: CS Check
         run: composer cs-check-all

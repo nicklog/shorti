@@ -28,7 +28,7 @@ class ShortUrl extends AbstractEntity
     #[ORM\Column(type: Types::STRING, unique: true, nullable: false, options: ['collation' => 'utf8mb4_bin'])]
     private string $code;
 
-    #[ORM\Column(type: Types::TEXT, unique: true, nullable: false)]
+    #[ORM\Column(type: Types::STRING, length: 2500, nullable: false)]
     private string $url;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

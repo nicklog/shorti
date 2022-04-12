@@ -22,12 +22,11 @@ final class Version20210526195113 extends AbstractMigration
                     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
                     domain_id INT UNSIGNED DEFAULT NULL,
                     code VARCHAR(255) NOT NULL COLLATE `utf8mb4_bin`,
-                    url LONGTEXT NOT NULL,
+                    url VARCHAR(2500) NOT NULL,
                     last_use DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '(DC2Type:datetimeutc)',
                     created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '(DC2Type:datetimeutc)',
                     updated DATETIME DEFAULT NULL COMMENT '(DC2Type:datetimeutc)',
                     UNIQUE INDEX UNIQ_8336053177153098 (code),
-                    UNIQUE INDEX UNIQ_83360531F47645AE (url),
                     INDEX IDX_83360531115F0EE5 (domain_id),
                     CONSTRAINT FK_83360531115F0EE5 FOREIGN KEY (domain_id) REFERENCES domain (id) ON DELETE SET NULL,
                     PRIMARY KEY(id)
